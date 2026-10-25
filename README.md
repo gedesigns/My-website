@@ -8,8 +8,9 @@ All text you'll want to change is in **`config.js`**:
 - `instagram` – your Instagram handle
 - `projects` – title, category, description and photo for each project
   (put photos in `assets/img/` and set `image: "assets/img/your-photo.jpg"`)
-- `reels` – Instagram reel links; each one plays on the site (Instagram → ••• → Copy link)
-- `feed` – the Instagram tiles under the reels
+- `reels` – featured Instagram reels: link (Instagram → ••• → Copy link), cover image and caption.
+  Each shows its cover; Instagram's player loads when a visitor taps it
+- `feed` – backup tiles for the live Instagram feed (the feed itself always shows the latest posts automatically)
 
 After changing `config.js`, `styles.css` or `script.js`, raise the `?v=` number where
 `index.html` loads them, so visitors' browsers fetch the new version instead of a cached one.

@@ -43,13 +43,16 @@ window.SITE = {
     },
   ],
 
-  // ── Instagram reels (played on the site) ──
-  // To add one: open the reel on Instagram → ••• → Copy link, and paste it below.
+  // ── Instagram reels ──
+  // Each reel shows its cover photo; Instagram's player loads only when a visitor taps it
+  // (keeps the page light, especially inside Instagram's own browser).
+  // To add one: open the reel on Instagram → ••• → Copy link, and paste it as the url.
+  // cover is optional (a 9:16 image in assets/img/); without it a branded tile is shown.
   reels: [
-    "https://www.instagram.com/reel/DeygPFKp_uC/",
-    "https://www.instagram.com/reel/DdI03QJxFqR/",
-    "https://www.instagram.com/reel/Dd_wZI7JTdQ/",
-    "https://www.instagram.com/reel/DeMrzrMJimk/",
+    { url: "https://www.instagram.com/reel/DeygPFKp_uC/", cover: "assets/img/reel-1.jpg", caption: "Reading the room? More like reading the entire floor plan" },
+    { url: "https://www.instagram.com/reel/DdI03QJxFqR/", cover: "assets/img/reel-2.jpg", caption: "Get to know your favourite interior designer, vol. 2" },
+    { url: "https://www.instagram.com/reel/Dd_wZI7JTdQ/", cover: "assets/img/reel-3.jpg", caption: "5 renovation mistakes to avoid" },
+    { url: "https://www.instagram.com/reel/DeMrzrMJimk/", cover: "assets/img/reel-4.jpg", caption: "What Pinterest doesn’t show" },
   ],
 
   // ── Instagram feed ──

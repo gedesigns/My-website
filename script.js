@@ -66,24 +66,52 @@
   lb.addEventListener("click", (e) => e.target === lb && closeLb());
   document.addEventListener("keydown", (e) => e.key === "Escape" && closeLb());
 
-  // ── Reels: official Instagram embeds (the link inside is the fallback if Instagram can't load) ──
-  // Share links carry tracking parameters (?igsh=…); the embed needs only the clean permalink.
+  // Instagram's embed script turns <blockquote class="instagram-media"> into players and feeds.
+  // Loaded on demand: when a reel is tapped or the live feed comes near the screen.
+  let igScript = null;
+  const loadInstagram = () => {
+    if (window.instgrm) return window.instgrm.Embeds.process();
+    if (igScript) return; // still loading; it processes every embed on the page when it arrives
+    igScript = document.createElement("script");
+    igScript.async = true;
+    igScript.src = "https://www.instagram.com/embed.js";
+    document.body.appendChild(igScript);
+  };
+
+  // ── Reels: a cover photo per reel; Instagram's player loads only when the reel is tapped.
+  //    Keeps the page light (no video players until wanted), especially inside Instagram's own browser.
+  //    Share links carry tracking parameters (?igsh=…); the embed needs only the clean permalink. ──
   const permalink = (url) => url.split(/[?#]/)[0].replace(/\/?$/, "/");
+  const reels = S.reels.map((r) => (typeof r === "string" ? { url: r } : r));
   const track = document.getElementById("reelsTrack");
-  track.innerHTML = S.reels
+  track.innerHTML = reels
     .map(
-      (url, i) => `
+      (r, i) => `
       <div class="reel">
-        <blockquote class="instagram-media" data-instgrm-permalink="${esc(permalink(url))}" data-instgrm-version="14">
-          <a href="${esc(permalink(url))}" target="_blank" rel="noopener">
-            <svg class="mark" aria-hidden="true"><use href="#ge-mark"/></svg>
-            <span>Reel ${String(i + 1).padStart(2, "0")}</span>
-            <strong>Watch on Instagram</strong>
-          </a>
-        </blockquote>
+        <a class="reel__cover" href="${esc(permalink(r.url))}" target="_blank" rel="noopener" data-index="${i}"
+           aria-label="Play reel${r.caption ? ": " + esc(r.caption) : ""}">
+          ${r.cover ? `<img src="${esc(r.cover)}" alt="" loading="lazy" />` : `<svg class="mark" aria-hidden="true"><use href="#ge-mark"/></svg>`}
+          <span class="reel__play" aria-hidden="true"></span>
+          <span class="reel__meta"><small>@${esc(S.instagram)}</small>${r.caption ? `<span>${esc(r.caption)}</span>` : ""}</span>
+        </a>
       </div>`
     )
     .join("");
+  track.addEventListener("click", (e) => {
+    const cover = e.target.closest(".reel__cover");
+    if (!cover) return;
+    e.preventDefault();
+    const url = permalink(reels[+cover.dataset.index].url);
+    // Swap the cover for Instagram's player; the link inside is the fallback if Instagram can't load
+    cover.parentElement.innerHTML = `
+      <blockquote class="instagram-media" data-instgrm-permalink="${esc(url)}" data-instgrm-version="14">
+        <a class="reel__fallback" href="${esc(url)}" target="_blank" rel="noopener">
+          <svg class="mark" aria-hidden="true"><use href="#ge-mark"/></svg>
+          <span>Watch on Instagram</span>
+        </a>
+      </blockquote>`;
+    loadInstagram();
+  });
 
   // Arrow buttons scroll the reels row by one reel; hidden when every reel already fits
   const reelsNav = document.getElementById("reelsNav");
@@ -98,8 +126,9 @@
   updateReelsNav();
 
   // ── Live Instagram feed: Instagram's official profile embed always shows the latest posts.
-  //    The tiles inside it are the fallback, shown only if Instagram can't load. ──
-  document.getElementById("feedLive").dataset.instgrmPermalink = igUrl;
+  //    It loads when the visitor scrolls near it; the tiles inside are the fallback. ──
+  const feedLive = document.getElementById("feedLive");
+  feedLive.dataset.instgrmPermalink = igUrl;
   document.getElementById("feedGrid").innerHTML = S.feed
     .map(
       (p) => `
@@ -109,12 +138,15 @@
       </a>`
     )
     .join("");
-
-  // Instagram's embed script turns the reels and the profile feed above into live embeds
-  const igScript = document.createElement("script");
-  igScript.async = true;
-  igScript.src = "https://www.instagram.com/embed.js";
-  document.body.appendChild(igScript);
+  new IntersectionObserver(
+    (entries, obs) => {
+      if (entries.some((en) => en.isIntersecting)) {
+        obs.disconnect();
+        loadInstagram();
+      }
+    },
+    { rootMargin: "600px 0px" }
+  ).observe(feedLive);
 
   // ── Contact form: opens the visitor's email app with the message filled in ──
   const form = document.getElementById("contactForm");
@@ -141,16 +173,24 @@
   const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 40);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
-  // Mobile menu: the page behind the full-screen menu doesn't scroll while it's open
+  // Mobile menu: its own full-screen layer (outside the fixed header), shown and hidden instantly.
+  // While it's open the page content is hidden, so nothing (e.g. an Instagram player) can draw over it.
+  const menu = document.getElementById("mobileMenu");
   const setMenu = (open) => {
+    menu.hidden = !open;
     nav.classList.toggle("is-open", open);
+    document.body.classList.toggle("menu-open", open);
     toggle.setAttribute("aria-expanded", open);
     toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    document.body.style.overflow = open ? "hidden" : "";
   };
-  toggle.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
-  document.querySelectorAll("#navLinks a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
-  document.addEventListener("keydown", (e) => e.key === "Escape" && nav.classList.contains("is-open") && setMenu(false));
+  toggle.addEventListener("click", () => setMenu(menu.hidden));
+  menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  nav.querySelector(".brand").addEventListener("click", () => setMenu(false));
+  document.addEventListener("keydown", (e) => e.key === "Escape" && !menu.hidden && setMenu(false));
+  const desktop = window.matchMedia("(min-width: 1081px)");
+  const onDesktop = () => desktop.matches && setMenu(false);
+  if (desktop.addEventListener) desktop.addEventListener("change", onDesktop);
+  else desktop.addListener(onDesktop);
 
   // ── Reveal on scroll ──
   const io = new IntersectionObserver(

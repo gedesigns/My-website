@@ -82,6 +82,17 @@ p { margin: 0 0 1.2em; }
 }
 .nav.is-scrolled::before { opacity: 1; }
 .nav.is-scrolled { color: var(--ink); padding-top: 0.7rem; padding-bottom: 0.7rem; }
+/* Mobile menu: a full-screen layer outside the fixed header (sits just below it, so the logo and
+   close button stay on top). Shown/hidden instantly with the hidden attribute; while it's open
+   the page content is hidden so nothing can draw over the menu. */
+.menu {
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 49;
+  display: flex; align-items: center; justify-content: center; background: var(--ivory); color: var(--ink);
+}
+.menu[hidden] { display: none; }
+.menu__links { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.menu__links a { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; }
+body.menu-open main, body.menu-open footer { visibility: hidden; }
 .brand { display: flex; align-items: center; gap: 0.95rem; }
 .brand__mark { width: 42px; height: 42px; color: var(--taupe); flex: none; }
 .brand__text { display: flex; flex-direction: column; text-transform: uppercase; line-height: 1.5; white-space: nowrap; }
@@ -188,13 +199,13 @@ p { margin: 0 0 1.2em; }
 
 /* Reels */
 .reels { background: var(--stone); }
-/* Reels are official Instagram embeds; the blockquote is the fallback shown until (or if) Instagram loads */
+/* Reels: a cover photo per reel; Instagram's player replaces it when tapped */
 .reels__track {
   display: flex; align-items: flex-start; gap: 1.4rem; overflow-x: auto; scroll-snap-type: x mandatory;
   max-width: 1280px; margin: 0 auto; padding-bottom: 1.2rem;
   scrollbar-width: thin; scrollbar-color: var(--taupe) transparent;
 }
-/* Instagram embeds need at least 326px of width */
+/* Instagram's player needs at least 326px of width */
 .reel { flex: 0 0 max(326px, min(340px, 88%)); scroll-snap-align: start; }
 .reels__nav { display: flex; justify-content: flex-end; gap: 0.6rem; max-width: 1280px; margin: 0.8rem auto 0; }
 .reels__nav[hidden] { display: none; }
@@ -203,17 +214,28 @@ p { margin: 0 0 1.2em; }
   font-size: 1.1rem; cursor: pointer; transition: background 0.3s var(--ease), color 0.3s var(--ease);
 }
 .arrow:hover { background: var(--olive); border-color: var(--olive); color: var(--ivory); }
+.reel__cover, .reel__fallback {
+  position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden;
+  background: var(--olive); color: var(--ivory);
+}
+.reel__cover img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.reel__cover:hover img { transform: scale(1.04); }
+.reel__cover::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(180deg, rgba(38, 42, 37, 0) 45%, rgba(38, 42, 37, 0.78)); }
+.reel__cover > .mark, .reel__fallback > .mark { position: absolute; top: 38%; left: 50%; width: 64px; height: 64px; margin-left: -32px; color: var(--taupe); }
+.reel__play {
+  position: absolute; z-index: 1; top: 50%; left: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px;
+  border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.9); background: rgba(38, 42, 37, 0.3);
+  display: grid; place-items: center; transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.reel__play::after { content: ""; border-left: 15px solid #fff; border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+.reel__cover:hover .reel__play, .reel__cover:focus-visible .reel__play { background: rgba(38, 42, 37, 0.5); transform: scale(1.06); }
+.reel__cover > .mark ~ .reel__play { top: 58%; }
+.reel__meta { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 1.3rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.reel__meta small { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; opacity: 0.85; }
+.reel__meta span { font-family: var(--serif); font-size: 1.15rem; line-height: 1.3; }
+.reel__fallback > span { position: absolute; left: 0; right: 0; top: 58%; text-align: center; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--taupe); }
 .reel iframe { min-width: 0 !important; width: 100% !important; max-width: none !important; margin: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: 0 10px 24px -16px rgba(38, 42, 37, 0.4) !important; }
 .reel blockquote { margin: 0; }
-.reel blockquote a {
-  aspect-ratio: 9 / 14; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9rem;
-  background: var(--olive); color: var(--ivory); text-align: center; padding: 1.5rem;
-  transition: background 0.4s var(--ease);
-}
-.reel blockquote a:hover { background: var(--olive-deep); }
-.reel blockquote .mark { width: 56px; height: 56px; color: var(--taupe); }
-.reel blockquote span { font-family: var(--serif); font-style: italic; font-size: 1.3rem; }
-.reel blockquote strong { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--taupe); }
 
 /* Instagram feed tiles */
 /* Live Instagram feed: intro on the left, Instagram's profile embed (latest posts) on the right */
@@ -311,13 +333,11 @@ p { margin: 0 0 1.2em; }
 /* Compact menu for tablets and phones: the full link row no longer fits beside the logo */
 @media (max-width: 1080px) {
   .nav__toggle { display: block; z-index: 2; }
-  .nav__links {
-    position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; background: var(--ivory); color: var(--ink);
-    flex-direction: column; justify-content: center; gap: 2rem; overscroll-behavior: contain;
-    opacity: 0; visibility: hidden; transition: opacity 0.4s var(--ease), visibility 0s linear 0.4s;
-  }
-  .nav__links a { font-size: 0.85rem; }
-  .nav.is-open .nav__links { opacity: 1; visibility: visible; transition: opacity 0.4s var(--ease); }
+  .nav__links { display: none; }
+}
+/* The mobile menu is only ever shown on tablets and phones */
+@media (min-width: 1081px) {
+  .menu { display: none !important; }
 }
 @media (max-width: 980px) {
   .section__head, .studio__grid, .contact__inner { grid-template-columns: 1fr; }
