@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Graceful Era Designs by Elina Grigoriadou — Interior Architecture &amp; Design</title>
+  <title>Graceful Era Designs by Elina Grigoriadou | Interior Design</title>
   <meta name="description" content="Graceful Era Designs by Elina Grigoriadou — interior architecture and design. Timeless elegance for every space." />
   <meta name="theme-color" content="#404540" />
   <meta property="og:type" content="website" />
@@ -21,7 +21,7 @@
 </head>
 <body>
   <!-- Logo mark (traced from the original logo), reused below with <use href="#ge-mark"> -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
     <symbol id="ge-mark" viewBox="0 0 1182 1182"><path fill-rule="evenodd" d="M547.5 1173.9C415.8 1163.4 295.5 1111.6 198 1023.6C98.2 933.3 31.2 808.2 12.1 676.4C4.9 627.1 4 571.3 9.6 523C35.3 298.7 191 107.4 406.2 35.6C453.9 19.7 500.4 10.6 552.9 6.9C574 5.4 628.2 6.3 648.5 8.5C774 21.8 886.2 71.2 979.5 154.1C1003.9 175.8 1033.4 207.3 1054.1 234C1080.9 268.3 1111.5 319.9 1126.4 355.4L1127.9 359L1105.7 358.9L1083.5 358.9L1077.8 347.2C1046.5 282.9 995.2 218.5 937.5 170.9C822.9 76.3 676.1 32.8 528.5 49.6C494 53.5 466.7 59.3 424.7 71.7C423.4 72.1 429.4 75.6 443.7 82.9C500.2 111.7 548 146.5 596.3 194C700.7 296.5 766.7 428.4 778.9 559C779.5 564.8 780.2 578.8 780.6 590.2L781.3 611L413.7 611L46 611L46.5 613.8C46.7 615.3 47.2 621.9 47.5 628.5C47.8 635.1 49 647.7 50.1 656.5C62.3 753.2 99.5 838.2 161.3 910.9C173.7 925.5 201.9 953.4 216.9 965.9C251 994.3 281.8 1014.3 322.5 1034.5C386.7 1066.3 452.6 1084.7 530 1092.5C564.5 1096 623.6 1095.5 659.5 1091.4C799.7 1075.5 908.7 1009.7 977.5 899.5C1024.6 824.1 1052 724.8 1055.3 618L1055.5 610.5L1115.4 610.2L1175.3 610L1174.7 624.2C1172.1 681.2 1158.1 745.4 1135.7 803C1074.1 961.8 942 1088.4 780.5 1143.6C737 1158.5 696.6 1167.4 649 1172.6C632.1 1174.5 565 1175.3 547.5 1173.9ZM655 566.2C655 560.1 652.2 536.6 649.5 520C629.1 394.9 563.2 280 464.8 197.8C433.2 171.3 400.3 149.7 362.2 130.3L345.9 122L331.7 129.1C245.5 172.2 170.8 239.9 118.9 322C106.2 342 100.7 352.1 92.9 369.6C65.5 431.1 50.5 494.5 46.7 563.8L46.4 570L350.7 570L655 570L655 566.2Z"/></symbol>
   </svg>
 
@@ -33,7 +33,7 @@
         <span class="brand__by">by Elina Grigoriadou</span>
       </span>
     </a>
-    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    <button class="nav__toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav__links" id="navLinks">
       <a href="#studio">Studio</a>
       <a href="#projects">Projects</a>
@@ -120,12 +120,12 @@
       <div class="feed">
         <div class="feed__head reveal">
           <p class="eyebrow">On Instagram</p>
-          <a class="feed__handle js-ig" href="#" target="_blank" rel="noopener"><span class="js-ig-handle"></span></a>
+          <a class="feed__handle js-ig" href="https://www.instagram.com/gracefuleradesigns/" target="_blank" rel="noopener"><span class="js-ig-handle">@gracefuleradesigns</span></a>
         </div>
         <div class="feed__grid" id="feedGrid"></div>
       </div>
       <div class="center reveal">
-        <a class="btn btn--dark js-ig" href="#" target="_blank" rel="noopener">Follow <span class="js-ig-handle"></span></a>
+        <a class="btn btn--dark js-ig" href="https://www.instagram.com/gracefuleradesigns/" target="_blank" rel="noopener">Follow <span class="js-ig-handle">@gracefuleradesigns</span></a>
       </div>
     </section>
 
@@ -166,7 +166,7 @@
           <p class="eyebrow reveal">Contact Us</p>
           <h2 class="reveal">Drop us a line!</h2>
           <p class="reveal">Tell us about your space and your vision — we’d love to hear from you.</p>
-          <a class="contact__email js-email reveal" href="#"></a>
+          <a class="contact__email js-email reveal" href="mailto:elina@gracefuleradesigns.com">elina@gracefuleradesigns.com</a>
         </div>
         <form class="form reveal" id="contactForm" novalidate>
           <label><span>Name</span><input type="text" name="name" autocomplete="name" /></label>
@@ -190,13 +190,13 @@
       </div>
       <div class="footer__col">
         <p class="eyebrow">Email</p>
-        <a class="footer__link js-email" href="#"></a>
+        <a class="footer__link js-email" href="mailto:elina@gracefuleradesigns.com">elina@gracefuleradesigns.com</a>
       </div>
       <div class="footer__col">
         <p class="eyebrow">Instagram</p>
-        <a class="footer__link footer__ig js-ig" href="#" target="_blank" rel="noopener">
+        <a class="footer__link footer__ig js-ig" href="https://www.instagram.com/gracefuleradesigns/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg>
-          <span class="js-ig-handle"></span>
+          <span class="js-ig-handle">@gracefuleradesigns</span>
         </a>
       </div>
       <div class="footer__col">
@@ -213,13 +213,13 @@
   </footer>
 
   <!-- Project lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" inert>
+    <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Close">×</button>
     <div class="lightbox__inner">
       <div class="lightbox__media" id="lightboxMedia"></div>
       <div class="lightbox__info">
         <p class="eyebrow" id="lightboxMeta"></p>
-        <h3 id="lightboxTitle"></h3>
+        <h3 id="lightboxTitle">Project</h3>
         <p id="lightboxDesc"></p>
       </div>
     </div>

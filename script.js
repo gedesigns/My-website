@@ -30,20 +30,26 @@
 
   // Lightbox
   const lb = document.getElementById("lightbox");
+  const lbClose = document.getElementById("lightboxClose");
+  let lastFocus = null;
   const openProject = (i) => {
+    lastFocus = document.activeElement;
     const p = S.projects[i];
     document.getElementById("lightboxMedia").innerHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}" />`;
     document.getElementById("lightboxMeta").textContent = meta(p);
     document.getElementById("lightboxTitle").textContent = p.title;
     document.getElementById("lightboxDesc").textContent = p.description;
     lb.classList.add("is-open");
-    lb.setAttribute("aria-hidden", "false");
+    lb.inert = false;
     document.body.style.overflow = "hidden";
+    lbClose.focus();
   };
   const closeLb = () => {
+    if (!lb.classList.contains("is-open")) return;
     lb.classList.remove("is-open");
-    lb.setAttribute("aria-hidden", "true");
+    lb.inert = true;
     document.body.style.overflow = "";
+    if (lastFocus) lastFocus.focus();
   };
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".project");
@@ -56,7 +62,7 @@
       openProject(+card.dataset.index);
     }
   });
-  document.getElementById("lightboxClose").addEventListener("click", closeLb);
+  lbClose.addEventListener("click", closeLb);
   lb.addEventListener("click", (e) => e.target === lb && closeLb());
   document.addEventListener("keydown", (e) => e.key === "Escape" && closeLb());
 
