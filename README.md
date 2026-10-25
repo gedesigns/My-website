@@ -11,6 +11,9 @@ All text you'll want to change is in **`config.js`**:
 - `reels` – Instagram reel links; each one plays on the site (Instagram → ••• → Copy link)
 - `feed` – the Instagram tiles under the reels
 
+After changing `config.js`, `styles.css` or `script.js`, raise the `?v=` number where
+`index.html` loads them, so visitors' browsers fetch the new version instead of a cached one.
+
 ## Brand assets
 - `assets/brand/` – the original logo files plus `logo-mark.svg`, a vector trace of the mark
 - `assets/favicon.svg`, `assets/apple-touch-icon.png` – browser and home-screen icons
