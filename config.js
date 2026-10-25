@@ -58,7 +58,5 @@ window.SITE = {
     { image: "assets/img/reel-chic-designer.jpg", caption: "Kinda chic to be an interior designer" },
     { image: "assets/img/reel-been-working.jpg", caption: "Sorry I didn’t respond… I’ve been working" },
     { image: "assets/img/reel-age-designer.jpg", caption: "Things that instantly age an interior designer" },
-    { image: "assets/img/reel-on-site.jpg", caption: "On site" },
-    { image: "assets/img/reel-relax.jpg", caption: "Studio moments" },
   ],
 };
