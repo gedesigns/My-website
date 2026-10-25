@@ -141,16 +141,16 @@
   const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 40);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
-  toggle.addEventListener("click", () => {
-    const open = nav.classList.toggle("is-open");
+  // Mobile menu: the page behind the full-screen menu doesn't scroll while it's open
+  const setMenu = (open) => {
+    nav.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", open);
-  });
-  document.querySelectorAll("#navLinks a").forEach((a) =>
-    a.addEventListener("click", () => {
-      nav.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-    })
-  );
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.style.overflow = open ? "hidden" : "";
+  };
+  toggle.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
+  document.querySelectorAll("#navLinks a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", (e) => e.key === "Escape" && nav.classList.contains("is-open") && setMenu(false));
 
   // ── Reveal on scroll ──
   const io = new IntersectionObserver(

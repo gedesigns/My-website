@@ -69,9 +69,18 @@ p { margin: 0 0 1.2em; }
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.3rem var(--gutter);
   color: var(--ivory);
-  transition: background 0.4s var(--ease), padding 0.4s var(--ease), color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  transition: padding 0.4s var(--ease), color 0.4s var(--ease);
 }
-.nav.is-scrolled { background: rgba(245, 242, 237, 0.94); backdrop-filter: blur(10px); color: var(--ink); padding-top: 0.7rem; padding-bottom: 0.7rem; box-shadow: 0 1px 0 var(--line); }
+/* Frosted bar on its own layer: a backdrop-filter on .nav itself would trap the
+   full-screen mobile menu (position: fixed) inside the 60px-high bar */
+.nav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(245, 242, 237, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 var(--line);
+  opacity: 0; transition: opacity 0.4s var(--ease);
+}
+.nav.is-scrolled::before { opacity: 1; }
+.nav.is-scrolled { color: var(--ink); padding-top: 0.7rem; padding-bottom: 0.7rem; }
 .brand { display: flex; align-items: center; gap: 0.95rem; }
 .brand__mark { width: 42px; height: 42px; color: var(--taupe); flex: none; }
 .brand__text { display: flex; flex-direction: column; text-transform: uppercase; line-height: 1.5; white-space: nowrap; }
