@@ -202,12 +202,18 @@ p { margin: 0 0 1.2em; }
 .reel blockquote strong { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--taupe); }
 
 /* Instagram feed tiles */
-.feed { max-width: 1280px; margin: clamp(4rem, 8vw, 6rem) auto 0; }
-.feed__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
-.feed__head .eyebrow { margin: 0; }
-.feed__handle { font-family: var(--serif); font-style: italic; font-size: 1.35rem; border-bottom: 1px solid currentColor; }
-.feed__handle:hover { color: var(--bronze); }
-.feed__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+/* Live Instagram feed: intro on the left, Instagram's profile embed (latest posts) on the right */
+.feed {
+  display: grid; grid-template-columns: 1fr minmax(326px, 540px); gap: clamp(2rem, 6vw, 6rem); align-items: center;
+  max-width: 1280px; margin: clamp(4rem, 8vw, 6rem) auto 0;
+}
+.feed__title { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom: 1.1rem; }
+.feed__handle { font-style: italic; color: var(--bronze-ink); border-bottom: 1px solid currentColor; }
+.feed__handle:hover { color: var(--ink); }
+.feed__intro > p:not(.eyebrow) { color: var(--ink-soft); margin-bottom: 2rem; }
+.feed__live blockquote { margin: 0; }
+.feed__live iframe { min-width: 0 !important; width: 100% !important; max-width: 540px !important; margin: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: 0 10px 24px -16px rgba(38, 42, 37, 0.4) !important; }
+.feed__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
 .post { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: var(--olive); }
 .post img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), opacity 0.5s var(--ease); }
 .post svg { position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; transform: translate(-50%, -50%); fill: none; stroke: var(--ivory); stroke-width: 1.4; opacity: 0; transition: opacity 0.4s var(--ease); }
@@ -303,7 +309,7 @@ p { margin: 0 0 1.2em; }
   .section__head, .studio__grid, .contact__inner { grid-template-columns: 1fr; }
   .section__sub { grid-column: 1; }
   .studio__images { max-width: 520px; }
-  .feed__grid { grid-template-columns: repeat(2, 1fr); }
+  .feed { grid-template-columns: 1fr; }
   .services__list { grid-template-columns: 1fr 1fr; }
   .services__list li, .services__list li:not(:nth-child(3n+1)) { padding: 2.2rem 1.5rem 2.2rem 0; border-left: 0; }
   .services__list li:nth-child(2n) { padding-left: 1.5rem; border-left: 1px solid var(--line); }

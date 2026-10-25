@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=7" />
+  <link rel="stylesheet" href="styles.css?v=8" />
 </head>
 <body>
   <!-- Logo mark (traced from the original logo), reused below with <use href="#ge-mark"> -->
@@ -118,14 +118,17 @@
       </div>
 
       <div class="feed">
-        <div class="feed__head reveal">
+        <div class="feed__intro reveal">
           <p class="eyebrow">On Instagram</p>
-          <a class="feed__handle js-ig" href="https://www.instagram.com/gracefuleradesigns/" target="_blank" rel="noopener"><span class="js-ig-handle">@gracefuleradesigns</span></a>
+          <h3 class="feed__title">The latest from <a class="feed__handle js-ig" href="https://www.instagram.com/gracefuleradesigns/" target="_blank" rel="noopener"><span class="js-ig-handle">@gracefuleradesigns</span></a></h3>
+          <p>New posts appear here automatically, straight from Instagram.</p>
+          <a class="btn btn--dark js-ig" href="https://www.instagram.com/gracefuleradesigns/" target="_blank" rel="noopener">Follow on Instagram</a>
         </div>
-        <div class="feed__grid" id="feedGrid"></div>
-      </div>
-      <div class="center reveal">
-        <a class="btn btn--dark js-ig" href="https://www.instagram.com/gracefuleradesigns/" target="_blank" rel="noopener">Follow <span class="js-ig-handle">@gracefuleradesigns</span></a>
+        <div class="feed__live">
+          <blockquote class="instagram-media" id="feedLive" data-instgrm-permalink="https://www.instagram.com/gracefuleradesigns/" data-instgrm-version="14">
+            <div class="feed__grid" id="feedGrid"></div>
+          </blockquote>
+        </div>
       </div>
     </section>
 
@@ -225,7 +228,7 @@
     </div>
   </div>
 
-  <script src="config.js?v=7"></script>
-  <script src="script.js?v=7"></script>
+  <script src="config.js?v=8"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>

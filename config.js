@@ -52,7 +52,9 @@ window.SITE = {
     "https://www.instagram.com/reel/DeMrzrMJimk/",
   ],
 
-  // ── Instagram feed tiles (link to the Instagram profile) ──
+  // ── Instagram feed ──
+  // The website shows your latest Instagram posts automatically (Instagram's official profile embed).
+  // These tiles are only a backup, shown if Instagram can't load.
   feed: [
     { image: "assets/img/reel-material-selection.jpg", caption: "Why does material selection matter?" },
     { image: "assets/img/reel-chic-designer.jpg", caption: "Kinda chic to be an interior designer" },

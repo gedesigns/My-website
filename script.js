@@ -84,12 +84,6 @@
       </div>`
     )
     .join("");
-  if (S.reels.length) {
-    const s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.instagram.com/embed.js";
-    document.body.appendChild(s);
-  }
 
   // Arrow buttons scroll the reels row by one reel; hidden when every reel already fits
   const reelsNav = document.getElementById("reelsNav");
@@ -103,16 +97,24 @@
   window.addEventListener("resize", updateReelsNav);
   updateReelsNav();
 
-  // ── Instagram feed tiles ──
+  // ── Live Instagram feed: Instagram's official profile embed always shows the latest posts.
+  //    The tiles inside it are the fallback, shown only if Instagram can't load. ──
+  document.getElementById("feedLive").dataset.instgrmPermalink = igUrl;
   document.getElementById("feedGrid").innerHTML = S.feed
     .map(
       (p) => `
-      <a class="post reveal" href="${igUrl}" target="_blank" rel="noopener" aria-label="${esc(p.caption)} — view on Instagram">
+      <a class="post" href="${igUrl}" target="_blank" rel="noopener" aria-label="${esc(p.caption)} — view on Instagram">
         <img src="${esc(p.image)}" alt="" loading="lazy" />
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg>
       </a>`
     )
     .join("");
+
+  // Instagram's embed script turns the reels and the profile feed above into live embeds
+  const igScript = document.createElement("script");
+  igScript.async = true;
+  igScript.src = "https://www.instagram.com/embed.js";
+  document.body.appendChild(igScript);
 
   // ── Contact form: opens the visitor's email app with the message filled in ──
   const form = document.getElementById("contactForm");
