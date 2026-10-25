@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#f6f1ea"/><path d="M12 58V30a20 20 0 0 1 40 0v28" fill="none" stroke="#8c6b4f" stroke-width="2.5"/><text x="32" y="45" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#2a2622">GE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200" fill="none">
+  <circle r="100" fill="#3f453e"/>
+  <g stroke="#bdb5ad" stroke-linecap="butt">
+    <path d="M58 -25 A63 63 0 1 0 63 2" stroke-width="5.5"/>
+    <path d="M-60 2 H64" stroke-width="3.2"/>
+  </g>
+  <path d="M-31 -55 Q26 -36 25 2 L17 2 Q15 -29 -31 -55 Z" fill="#bdb5ad"/>
+</svg>

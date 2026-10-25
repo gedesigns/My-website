@@ -7,78 +7,50 @@
  */
 window.SITE = {
   brand: "Graceful Era Designs",
-  tagline: "Interior Architecture & Design",
+  tagline: "Timeless elegance for every space",
 
   // ── Contact (shown in the footer and contact section) ──
   email: "hello@gracefuleradesigns.com", // TODO: replace with your real email
   instagram: "gracefuleradesigns",
 
   // ── Projects ──
-  // NOTE: the six projects below are SAMPLE text so you can see the layout.
-  // Replace them with your real projects (title, photos, description).
-  // image: put photos in assets/projects/ and write the file name, e.g. "assets/projects/villa-1.jpg"
-  // Leave image empty ("") to show an elegant placeholder tile.
+  // image: a photo in assets/img/ (higher-resolution photos look best).
   projects: [
     {
-      title: "The Limestone Residence",
+      title: "Living Room Transformation",
       category: "Residential",
-      location: "Private Villa",
-      year: "2025",
-      image: "",
+      year: "",
+      image: "assets/img/project-before-after.jpg",
       description:
-        "A calm, light-filled family home shaped around natural stone, warm oak and soft linen tones.",
+        "Before, during and after — an empty shell turned into a warm, layered living space with bespoke media joinery, open shelving and a soft neutral palette.",
     },
     {
-      title: "Atelier Lumière",
-      category: "Commercial",
-      location: "Boutique",
-      year: "2025",
-      image: "",
+      title: "Bespoke Wardrobes",
+      category: "Joinery",
+      year: "",
+      image: "assets/img/project-wardrobes.jpg",
       description:
-        "A boutique retail interior where curved plaster walls and brass detailing frame every piece on display.",
+        "Floor-to-ceiling built-in wardrobes, designed to the millimetre and installed on site for a seamless, clean-lined finish.",
     },
     {
-      title: "Seaside Apartment",
-      category: "Residential",
-      location: "Coastal",
-      year: "2024",
-      image: "",
+      title: "Stone & Water",
+      category: "Materials",
+      year: "",
+      image: "assets/img/project-pool-stone.jpg",
       description:
-        "An open-plan apartment refined with bespoke joinery, travertine surfaces and a muted coastal palette.",
-    },
-    {
-      title: "Olive Grove Kitchen",
-      category: "Kitchen & Bath",
-      location: "Renovation",
-      year: "2024",
-      image: "",
-      description:
-        "A kitchen renovation built around a sculptural island, fluted cabinetry and hand-made tiles.",
-    },
-    {
-      title: "Maison Verde",
-      category: "Hospitality",
-      location: "Café & Lounge",
-      year: "2024",
-      image: "",
-      description:
-        "A café interior layered with greenery, terrazzo and soft arches for a relaxed, timeless atmosphere.",
-    },
-    {
-      title: "The Quiet Study",
-      category: "Residential",
-      location: "Home Office",
-      year: "2023",
-      image: "",
-      description:
-        "A reading room and home office designed for focus, with walnut shelving and tonal wool textures.",
+        "A study in natural materials — pale stone meeting clear water, chosen for calm, texture and longevity.",
     },
   ],
 
   // ── Instagram reels ──
-  // Paste the link of each reel, e.g. "https://www.instagram.com/reel/ABC123xyz/"
-  // (open a reel on Instagram → ••• → Copy link). They will play right on the site.
+  // image: thumbnail in assets/img/
+  // url: paste the reel link (Instagram → ••• → Copy link). Empty = opens your profile.
   reels: [
-    // "https://www.instagram.com/reel/XXXXXXXXXXX/",
+    { image: "assets/img/reel-material-selection.jpg", caption: "Why does material selection matter?", url: "" },
+    { image: "assets/img/reel-chic-designer.jpg", caption: "Kinda chic to be an interior designer", url: "" },
+    { image: "assets/img/reel-been-working.jpg", caption: "Sorry I didn’t respond… I’ve been working", url: "" },
+    { image: "assets/img/reel-age-designer.jpg", caption: "Things that instantly age an interior designer", url: "" },
+    { image: "assets/img/reel-on-site.jpg", caption: "On site", url: "" },
+    { image: "assets/img/reel-relax.jpg", caption: "Studio moments", url: "" },
   ],
 };

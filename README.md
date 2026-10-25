@@ -6,9 +6,9 @@ A static website for Graceful Era Designs (interior architecture & design). It n
 All text you'll want to change is in **`config.js`**:
 - `email` – shown in the footer and contact section
 - `instagram` – your Instagram handle
-- `projects` – title, category, year, description and photo for each project
-  (put photos in `assets/projects/` and set `image: "assets/projects/your-photo.jpg"`)
-- `reels` – paste Instagram reel links and they play on the site
+- `projects` – title, category, description and photo for each project
+  (put photos in `assets/img/` and set `image: "assets/img/your-photo.jpg"`)
+- `reels` – thumbnail + caption for each reel; paste the reel link into `url`
 
 ## Preview locally
 Open `index.html` in a browser.
