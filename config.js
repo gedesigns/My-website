@@ -7,14 +7,15 @@
  */
 window.SITE = {
   brand: "Graceful Era Designs",
+  designer: "Elina Grigoriadou",
   tagline: "Timeless elegance for every space",
 
   // ── Contact (shown in the footer and contact section) ──
-  email: "hello@gracefuleradesigns.com", // TODO: replace with your real email
+  email: "elina@gracefuleradesigns.com",
   instagram: "gracefuleradesigns",
 
   // ── Projects ──
-  // image: a photo in assets/img/ (higher-resolution photos look best).
+  // image: a photo in assets/img/
   projects: [
     {
       title: "Living Room Transformation",
@@ -42,15 +43,22 @@ window.SITE = {
     },
   ],
 
-  // ── Instagram reels ──
-  // image: thumbnail in assets/img/
-  // url: paste the reel link (Instagram → ••• → Copy link). Empty = opens your profile.
+  // ── Instagram reels (played on the site) ──
+  // To add one: open the reel on Instagram → ••• → Copy link, and paste it below.
   reels: [
-    { image: "assets/img/reel-material-selection.jpg", caption: "Why does material selection matter?", url: "" },
-    { image: "assets/img/reel-chic-designer.jpg", caption: "Kinda chic to be an interior designer", url: "" },
-    { image: "assets/img/reel-been-working.jpg", caption: "Sorry I didn’t respond… I’ve been working", url: "" },
-    { image: "assets/img/reel-age-designer.jpg", caption: "Things that instantly age an interior designer", url: "" },
-    { image: "assets/img/reel-on-site.jpg", caption: "On site", url: "" },
-    { image: "assets/img/reel-relax.jpg", caption: "Studio moments", url: "" },
+    "https://www.instagram.com/reel/DeygPFKp_uC/",
+    "https://www.instagram.com/reel/DdI03QJxFqR/",
+    "https://www.instagram.com/reel/Dd_wZI7JTdQ/",
+    "https://www.instagram.com/reel/DeMrzrMJimk/",
+  ],
+
+  // ── Instagram feed tiles (link to the Instagram profile) ──
+  feed: [
+    { image: "assets/img/reel-material-selection.jpg", caption: "Why does material selection matter?" },
+    { image: "assets/img/reel-chic-designer.jpg", caption: "Kinda chic to be an interior designer" },
+    { image: "assets/img/reel-been-working.jpg", caption: "Sorry I didn’t respond… I’ve been working" },
+    { image: "assets/img/reel-age-designer.jpg", caption: "Things that instantly age an interior designer" },
+    { image: "assets/img/reel-on-site.jpg", caption: "On site" },
+    { image: "assets/img/reel-relax.jpg", caption: "Studio moments" },
   ],
 };

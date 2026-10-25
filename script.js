@@ -60,15 +60,50 @@
   lb.addEventListener("click", (e) => e.target === lb && closeLb());
   document.addEventListener("keydown", (e) => e.key === "Escape" && closeLb());
 
-  // ── Reels ──
-  document.getElementById("reelsTrack").innerHTML = S.reels
+  // ── Reels: official Instagram embeds (the link inside is the fallback if Instagram can't load) ──
+  // Share links carry tracking parameters (?igsh=…); the embed needs only the clean permalink.
+  const permalink = (url) => url.split(/[?#]/)[0].replace(/\/?$/, "/");
+  const track = document.getElementById("reelsTrack");
+  track.innerHTML = S.reels
     .map(
-      (r) => `
-      <a class="reel reveal" href="${esc(r.url || igUrl)}" target="_blank" rel="noopener" aria-label="${esc(r.caption)} — watch on Instagram">
-        <img src="${esc(r.image)}" alt="" loading="lazy" />
-        <span class="reel__play" aria-hidden="true"></span>
-        <small>@${esc(S.instagram)}</small>
-        <p>${esc(r.caption)}</p>
+      (url, i) => `
+      <div class="reel">
+        <blockquote class="instagram-media" data-instgrm-permalink="${esc(permalink(url))}" data-instgrm-version="14">
+          <a href="${esc(permalink(url))}" target="_blank" rel="noopener">
+            <svg class="mark" aria-hidden="true"><use href="#ge-mark"/></svg>
+            <span>Reel ${String(i + 1).padStart(2, "0")}</span>
+            <strong>Watch on Instagram</strong>
+          </a>
+        </blockquote>
+      </div>`
+    )
+    .join("");
+  if (S.reels.length) {
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.instagram.com/embed.js";
+    document.body.appendChild(s);
+  }
+
+  // Arrow buttons scroll the reels row by one reel; hidden when every reel already fits
+  const reelsNav = document.getElementById("reelsNav");
+  const updateReelsNav = () => (reelsNav.hidden = track.scrollWidth <= track.clientWidth + 2);
+  reelsNav.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn || !track.firstElementChild) return;
+    const step = track.firstElementChild.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0);
+    track.scrollBy({ left: step * +btn.dataset.dir, behavior: "smooth" });
+  });
+  window.addEventListener("resize", updateReelsNav);
+  updateReelsNav();
+
+  // ── Instagram feed tiles ──
+  document.getElementById("feedGrid").innerHTML = S.feed
+    .map(
+      (p) => `
+      <a class="post reveal" href="${igUrl}" target="_blank" rel="noopener" aria-label="${esc(p.caption)} — view on Instagram">
+        <img src="${esc(p.image)}" alt="" loading="lazy" />
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg>
       </a>`
     )
     .join("");

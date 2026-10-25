@@ -3,22 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Graceful Era Designs — Timeless elegance for every space</title>
-  <meta name="description" content="Graceful Era Designs — interior architecture and design. Timeless elegance for every space." />
-  <meta property="og:title" content="Graceful Era Designs" />
-  <meta property="og:description" content="Timeless elegance for every space." />
-  <meta property="og:image" content="assets/img/bedroom-panorama.jpg" />
+  <title>Graceful Era Designs by Elina Grigoriadou — Interior Architecture &amp; Design</title>
+  <meta name="description" content="Graceful Era Designs by Elina Grigoriadou — interior architecture and design. Timeless elegance for every space." />
+  <meta name="theme-color" content="#404540" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gracefuleradesigns.com/" />
+  <meta property="og:title" content="Graceful Era Designs by Elina Grigoriadou" />
+  <meta property="og:description" content="Interior architecture &amp; design — timeless elegance for every space." />
+  <meta property="og:image" content="https://gracefuleradesigns.com/assets/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Logo mark (traced from the original logo), reused below with <use href="#ge-mark"> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ge-mark" viewBox="0 0 1182 1182"><path fill-rule="evenodd" d="M547.5 1173.9C415.8 1163.4 295.5 1111.6 198 1023.6C98.2 933.3 31.2 808.2 12.1 676.4C4.9 627.1 4 571.3 9.6 523C35.3 298.7 191 107.4 406.2 35.6C453.9 19.7 500.4 10.6 552.9 6.9C574 5.4 628.2 6.3 648.5 8.5C774 21.8 886.2 71.2 979.5 154.1C1003.9 175.8 1033.4 207.3 1054.1 234C1080.9 268.3 1111.5 319.9 1126.4 355.4L1127.9 359L1105.7 358.9L1083.5 358.9L1077.8 347.2C1046.5 282.9 995.2 218.5 937.5 170.9C822.9 76.3 676.1 32.8 528.5 49.6C494 53.5 466.7 59.3 424.7 71.7C423.4 72.1 429.4 75.6 443.7 82.9C500.2 111.7 548 146.5 596.3 194C700.7 296.5 766.7 428.4 778.9 559C779.5 564.8 780.2 578.8 780.6 590.2L781.3 611L413.7 611L46 611L46.5 613.8C46.7 615.3 47.2 621.9 47.5 628.5C47.8 635.1 49 647.7 50.1 656.5C62.3 753.2 99.5 838.2 161.3 910.9C173.7 925.5 201.9 953.4 216.9 965.9C251 994.3 281.8 1014.3 322.5 1034.5C386.7 1066.3 452.6 1084.7 530 1092.5C564.5 1096 623.6 1095.5 659.5 1091.4C799.7 1075.5 908.7 1009.7 977.5 899.5C1024.6 824.1 1052 724.8 1055.3 618L1055.5 610.5L1115.4 610.2L1175.3 610L1174.7 624.2C1172.1 681.2 1158.1 745.4 1135.7 803C1074.1 961.8 942 1088.4 780.5 1143.6C737 1158.5 696.6 1167.4 649 1172.6C632.1 1174.5 565 1175.3 547.5 1173.9ZM655 566.2C655 560.1 652.2 536.6 649.5 520C629.1 394.9 563.2 280 464.8 197.8C433.2 171.3 400.3 149.7 362.2 130.3L345.9 122L331.7 129.1C245.5 172.2 170.8 239.9 118.9 322C106.2 342 100.7 352.1 92.9 369.6C65.5 431.1 50.5 494.5 46.7 563.8L46.4 570L350.7 570L655 570L655 566.2Z"/></symbol>
+  </svg>
+
   <header class="nav" id="nav">
-    <a href="#top" class="nav__logo" aria-label="Graceful Era Designs — home">
-      <img src="assets/logo-mark.svg" alt="" width="40" height="40" />
-      <span class="nav__name">Graceful Era Designs</span>
+    <a href="#top" class="brand" aria-label="Graceful Era Designs by Elina Grigoriadou — home">
+      <svg class="mark brand__mark" aria-hidden="true"><use href="#ge-mark"/></svg>
+      <span class="brand__text">
+        <span class="brand__name">Graceful Era Designs</span>
+        <span class="brand__by">by Elina Grigoriadou</span>
+      </span>
     </a>
     <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav__links" id="navLinks">
@@ -34,8 +47,11 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero__content">
-        <img class="hero__logo reveal" src="assets/logo-mark.svg" alt="" width="96" height="96" />
-        <p class="hero__brand reveal">Graceful Era Designs</p>
+        <svg class="mark hero__mark reveal" aria-hidden="true"><use href="#ge-mark"/></svg>
+        <p class="hero__brand reveal">
+          <span class="hero__name">Graceful Era Designs</span>
+          <span class="hero__by">by Elina Grigoriadou</span>
+        </p>
         <h1 class="hero__title reveal">Timeless elegance <em>for every space</em></h1>
         <p class="hero__lead reveal">Interior architecture &amp; design — calm, considered spaces shaped by light, texture and honest materials.</p>
         <div class="hero__actions reveal">
@@ -55,7 +71,7 @@
           <span class="num reveal">01</span>
           <p class="eyebrow reveal">The Studio</p>
           <h2 class="reveal">Designing interiors that feel <em>effortless</em> — and last for an era.</h2>
-          <p class="reveal">Graceful Era Designs is an interior architecture and design studio devoted to thoughtful, design-led spaces. We balance architectural clarity with a soft, tactile sensibility — light, proportion and material working together to create homes and commercial interiors that feel personal and enduring.</p>
+          <p class="reveal">Founded by Elina Grigoriadou, Graceful Era Designs is an interior architecture and design studio devoted to thoughtful, design-led spaces. We balance architectural clarity with a soft, tactile sensibility — light, proportion and material working together to create homes and commercial interiors that feel personal and enduring.</p>
           <p class="reveal">From the first sketch on paper to the final styled detail on site, every project is guided by one belief: beautiful design should feel calm, considered and entirely yours.</p>
           <div class="stats reveal">
             <div><strong>Concept</strong><span>to completion</span></div>
@@ -65,14 +81,17 @@
         </div>
         <div class="studio__images">
           <figure class="studio__img studio__img--a reveal"><img src="assets/img/studio-plans.jpg" alt="Hand-marked architectural floor plans" loading="lazy" /></figure>
-          <figure class="studio__img studio__img--b reveal"><img src="assets/img/studio-designer.jpg" alt="The designer of Graceful Era Designs" loading="lazy" /></figure>
+          <figure class="studio__img studio__img--b reveal">
+            <img src="assets/img/studio-designer.jpg" alt="Elina Grigoriadou, founder of Graceful Era Designs" loading="lazy" />
+            <figcaption>Elina Grigoriadou <span>Founder</span></figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
     <!-- QUOTE BAND -->
     <section class="band">
-      <img class="band__mark" src="assets/logo-mark.svg" alt="" width="54" height="54" />
+      <svg class="mark band__mark" aria-hidden="true"><use href="#ge-mark"/></svg>
       <p class="band__quote reveal">“Elegance is not about being noticed, it’s about being remembered.”</p>
     </section>
 
@@ -85,14 +104,26 @@
       <div class="projects__grid" id="projectsGrid"></div>
     </section>
 
-    <!-- REELS -->
+    <!-- REELS + INSTAGRAM -->
     <section class="reels section" id="reels">
       <div class="section__head">
         <div class="reveal"><span class="num">03</span><p class="eyebrow">In Motion</p></div>
         <h2 class="reveal">Reels</h2>
-        <p class="section__sub reveal">Site visits, material choices and real life as an interior designer — follow along on Instagram.</p>
+        <p class="section__sub reveal">Site visits, material choices and real life as an interior designer — press play, or follow along on Instagram.</p>
       </div>
       <div class="reels__track" id="reelsTrack"></div>
+      <div class="reels__nav" id="reelsNav">
+        <button class="arrow" type="button" data-dir="-1" aria-label="Previous reels">←</button>
+        <button class="arrow" type="button" data-dir="1" aria-label="Next reels">→</button>
+      </div>
+
+      <div class="feed">
+        <div class="feed__head reveal">
+          <p class="eyebrow">On Instagram</p>
+          <a class="feed__handle js-ig" href="#" target="_blank" rel="noopener"><span class="js-ig-handle"></span></a>
+        </div>
+        <div class="feed__grid" id="feedGrid"></div>
+      </div>
       <div class="center reveal">
         <a class="btn btn--dark js-ig" href="#" target="_blank" rel="noopener">Follow <span class="js-ig-handle"></span></a>
       </div>
@@ -152,8 +183,9 @@
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand">
-        <img src="assets/logo-mark.svg" alt="" width="64" height="64" />
+        <svg class="mark footer__mark" aria-hidden="true"><use href="#ge-mark"/></svg>
         <p class="footer__name">Graceful Era Designs</p>
+        <p class="footer__by">by Elina Grigoriadou</p>
         <p class="footer__tag">Timeless elegance for every space</p>
       </div>
       <div class="footer__col">
@@ -175,7 +207,7 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <p>© <span id="year"></span> Graceful Era Designs. All rights reserved.</p>
+      <p>© <span id="year"></span> Graceful Era Designs by Elina Grigoriadou. All rights reserved.</p>
       <a href="#top">Back to top ↑</a>
     </div>
   </footer>
