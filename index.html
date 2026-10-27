@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=11" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 <body>
   <!-- Logo mark (traced from the original logo), reused below with <use href="#ge-mark"> -->
@@ -57,30 +57,39 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero">
-      <div class="hero__content">
-        <svg class="mark hero__mark reveal" aria-hidden="true"><use href="#ge-mark"/></svg>
-        <p class="hero__brand reveal">
-          <span class="hero__name">Graceful Era Designs</span>
-          <span class="hero__by">by Elina Grigoriadou</span>
-        </p>
-        <h1 class="hero__title reveal">Timeless elegance <em>for every space</em></h1>
-        <p class="hero__lead reveal">Interior architecture &amp; design — calm, considered spaces shaped by light, texture and honest materials.</p>
-        <div class="hero__actions reveal">
-          <a href="#projects" class="btn btn--light">View Projects</a>
-          <a href="#contact" class="btn btn--ghost">Drop us a line</a>
+      <div class="hero__inner">
+        <div class="hero__text">
+          <p class="hero__brand reveal">
+            <span class="hero__name">Graceful Era Designs</span>
+            <span class="hero__by">by Elina Grigoriadou</span>
+          </p>
+          <h1 class="hero__title reveal">Timeless elegance <span class="hero__line"><span class="hero__pill" aria-hidden="true"></span> <em>for every space</em></span></h1>
+          <p class="hero__lead reveal">Interior architecture &amp; design — calm, considered spaces shaped by light, texture and honest materials.</p>
+          <div class="hero__actions reveal">
+            <a href="#projects" class="btn btn--dark">View Projects</a>
+            <a href="#contact" class="btn btn--link">Drop us a line</a>
+          </div>
+        </div>
+        <div class="hero__visual reveal">
+          <figure class="hero__arch">
+            <img src="assets/img/wood-light.jpg" alt="Afternoon sunlight falling diagonally across a warm wood-panelled wall" />
+          </figure>
+          <div class="hero__badge" aria-hidden="true">
+            <svg class="hero__ring" viewBox="0 0 200 200">
+              <defs><path id="heroRing" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" /></defs>
+              <text><textPath href="#heroRing" textLength="496" lengthAdjust="spacing">GRACEFUL ERA DESIGNS · BY ELINA GRIGORIADOU ·</textPath></text>
+            </svg>
+            <svg class="mark"><use href="#ge-mark"/></svg>
+          </div>
         </div>
       </div>
     </section>
-    <figure class="panorama">
-      <img src="assets/img/wood-light.jpg" alt="Afternoon sunlight falling diagonally across a warm wood-panelled wall" />
-    </figure>
 
     <!-- STUDIO -->
     <section class="studio section" id="studio">
       <div class="studio__grid">
         <div class="studio__text">
-          <span class="num reveal">01</span>
-          <p class="eyebrow reveal">The Studio</p>
+          <div class="label reveal"><span class="num">01</span><p class="eyebrow">The Studio</p></div>
           <h2 class="reveal">Designing interiors that feel <em>effortless</em> — and last for an era.</h2>
           <p class="reveal">Founded by Elina Grigoriadou, Graceful Era Designs is an interior architecture and design studio devoted to thoughtful, design-led spaces. We balance architectural clarity with a soft, tactile sensibility — light, proportion and material working together to create homes and commercial interiors that feel personal and enduring.</p>
           <p class="reveal">From the first sketch on paper to the final styled detail on site, every project is guided by one belief: beautiful design should feel calm, considered and entirely yours.</p>
@@ -109,7 +118,7 @@
     <!-- PROJECTS -->
     <section class="projects section" id="projects">
       <div class="section__head">
-        <div class="reveal"><span class="num">02</span><p class="eyebrow">Selected Work</p></div>
+        <div class="label reveal"><span class="num">02</span><p class="eyebrow">Selected Work</p></div>
         <h2 class="reveal">Projects</h2>
       </div>
       <div class="projects__grid" id="projectsGrid"></div>
@@ -118,7 +127,7 @@
     <!-- REELS + INSTAGRAM -->
     <section class="reels section" id="reels">
       <div class="section__head">
-        <div class="reveal"><span class="num">03</span><p class="eyebrow">In Motion</p></div>
+        <div class="label reveal"><span class="num">03</span><p class="eyebrow">In Motion</p></div>
         <h2 class="reveal">Reels</h2>
         <p class="section__sub reveal">Site visits, material choices and real life as an interior designer — press play, or follow along on Instagram.</p>
       </div>
@@ -146,7 +155,7 @@
     <!-- SERVICES -->
     <section class="services section" id="services">
       <div class="section__head">
-        <div class="reveal"><span class="num">04</span><p class="eyebrow">What We Do</p></div>
+        <div class="label reveal"><span class="num">04</span><p class="eyebrow">What We Do</p></div>
         <h2 class="reveal">Services</h2>
       </div>
       <ol class="services__list">
@@ -162,7 +171,7 @@
     <!-- PROCESS -->
     <section class="process section">
       <div class="section__head">
-        <div class="reveal"><span class="num">05</span><p class="eyebrow">How We Work</p></div>
+        <div class="label reveal"><span class="num">05</span><p class="eyebrow">How We Work</p></div>
         <h2 class="reveal">Process</h2>
       </div>
       <div class="process__steps">
@@ -239,7 +248,7 @@
     </div>
   </div>
 
-  <script src="config.js?v=11"></script>
-  <script src="script.js?v=11"></script>
+  <script src="config.js?v=12"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>
