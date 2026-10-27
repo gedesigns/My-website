@@ -15,6 +15,12 @@ All text you'll want to change is in **`config.js`**:
 After changing `config.js`, `styles.css` or `script.js`, raise the `?v=` number where
 `index.html` loads them, so visitors' browsers fetch the new version instead of a cached one.
 
+## Contact form
+Messages are emailed to the address in `config.js` (`email`) through FormSubmit (formsubmit.co), a free
+form-to-email service. The first message sent to a new address triggers a one-time FormSubmit email asking
+to **Activate Form**; click it and every message after that arrives in the inbox. If FormSubmit can't be
+reached, the visitor's email app opens with the message ready to send instead.
+
 ## Brand assets
 - `assets/brand/` – the original logo files plus `logo-mark.svg`, a vector trace of the mark
 - `assets/favicon.svg`, `assets/apple-touch-icon.png` – browser and home-screen icons

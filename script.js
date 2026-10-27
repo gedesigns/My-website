@@ -148,23 +148,58 @@
     { rootMargin: "600px 0px" }
   ).observe(feedLive);
 
-  // ── Contact form: opens the visitor's email app with the message filled in ──
+  // ── Contact form: sends the message straight to Elina's inbox through FormSubmit (formsubmit.co),
+  //    a free form-to-email service. If that fails, the visitor's email app opens with the message instead. ──
   const form = document.getElementById("contactForm");
   const note = document.getElementById("formNote");
-  form.addEventListener("submit", (e) => {
+  const sendBtn = form.querySelector('button[type="submit"]');
+  const openEmailApp = (name, email, message) => {
+    const subject = "Website enquiry" + (name ? " from " + name : "");
+    const body = `${message}\n\n— ${name || "(no name)"}\n${email}`;
+    window.location.href = `mailto:${S.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const d = new FormData(form);
+    const name = (d.get("name") || "").trim();
     const email = (d.get("email") || "").trim();
+    const message = (d.get("message") || "").trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       note.textContent = "Please enter a valid email address.";
       form.elements.email.focus();
       return;
     }
-    const name = (d.get("name") || "").trim();
-    const subject = "Website enquiry" + (name ? " from " + name : "");
-    const body = `${d.get("message") || ""}\n\n— ${name || "(no name)"}\n${email}`;
-    window.location.href = `mailto:${S.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    note.textContent = "Thank you! Your email app should open to send the message.";
+    if (!message) {
+      note.textContent = "Please write a short message.";
+      form.elements.message.focus();
+      return;
+    }
+    if (d.get("_honey")) return; // the hidden spam trap was filled in: a bot
+    sendBtn.disabled = true;
+    note.textContent = "Sending…";
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${S.email}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `New enquiry from ${name || email} · gracefuleradesigns.com`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || String(data.success) !== "true") throw new Error(data.message || "HTTP " + res.status);
+      form.reset();
+      note.textContent = "Thank you! Your message has been sent. We’ll be in touch soon.";
+    } catch (err) {
+      note.textContent = "Your email app will open with your message ready. Just press send.";
+      openEmailApp(name, email, message);
+    } finally {
+      sendBtn.disabled = false;
+    }
   });
 
   // ── Nav ──
@@ -191,6 +226,36 @@
   const onDesktop = () => desktop.matches && setMenu(false);
   if (desktop.addEventListener) desktop.addEventListener("change", onDesktop);
   else desktop.addListener(onDesktop);
+
+  // ── Interactive room in the hero: the swatches re-upholster the sofa; the lamp switches on and off ──
+  const room = document.querySelector(".hero__visual");
+  if (room) {
+    const fabricName = room.querySelector(".hero__fabric");
+    const swatches = room.querySelectorAll(".swatch");
+    swatches.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        room.dataset.fabric = btn.dataset.fabric;
+        fabricName.textContent = btn.dataset.name;
+        swatches.forEach((b) => {
+          b.classList.toggle("is-active", b === btn);
+          b.setAttribute("aria-pressed", b === btn);
+        });
+      })
+    );
+    const lamp = room.querySelector(".lamp");
+    const toggleLamp = () => {
+      const on = !room.classList.toggle("is-off");
+      lamp.setAttribute("aria-pressed", on);
+      lamp.setAttribute("aria-label", on ? "Turn the lamp off" : "Turn the lamp on");
+    };
+    lamp.addEventListener("click", toggleLamp);
+    lamp.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleLamp();
+      }
+    });
+  }
 
   // ── Reveal on scroll ──
   const io = new IntersectionObserver(
