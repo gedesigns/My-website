@@ -192,24 +192,6 @@
   if (desktop.addEventListener) desktop.addEventListener("change", onDesktop);
   else desktop.addListener(onDesktop);
 
-  // ── Gentle parallax on the hero photo (skipped when the visitor prefers reduced motion) ──
-  const heroImg = document.querySelector(".hero__arch img");
-  if (heroImg && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    let ticking = false;
-    const parallax = () => {
-      ticking = false;
-      const progress = Math.min(window.scrollY / window.innerHeight, 1);
-      heroImg.style.transform = `translateY(${(progress * 14).toFixed(1)}px) scale(1.06)`;
-    };
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(parallax);
-      }
-    }, { passive: true });
-    parallax();
-  }
-
   // ── Reveal on scroll ──
   const io = new IntersectionObserver(
     (entries) =>

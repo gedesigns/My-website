@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=13" />
 </head>
 <body>
   <!-- Logo mark (traced from the original logo), reused below with <use href="#ge-mark"> -->
@@ -59,11 +59,7 @@
     <section class="hero">
       <div class="hero__inner">
         <div class="hero__text">
-          <p class="hero__brand reveal">
-            <span class="hero__name">Graceful Era Designs</span>
-            <span class="hero__by">by Elina Grigoriadou</span>
-          </p>
-          <h1 class="hero__title reveal">Timeless elegance <span class="hero__line"><span class="hero__pill" aria-hidden="true"></span> <em>for every space</em></span></h1>
+          <h1 class="hero__title reveal">Timeless elegance <em>for every space</em></h1>
           <p class="hero__lead reveal">Interior architecture &amp; design — calm, considered spaces shaped by light, texture and honest materials.</p>
           <div class="hero__actions reveal">
             <a href="#projects" class="btn btn--dark">View Projects</a>
@@ -71,15 +67,72 @@
           </div>
         </div>
         <div class="hero__visual reveal">
+          <!-- Drawn interior vignette in the brand colours: arched niche, sofa, arc lamp, side table -->
           <figure class="hero__arch">
-            <img src="assets/img/wood-light.jpg" alt="Afternoon sunlight falling diagonally across a warm wood-panelled wall" />
-          </figure>
-          <div class="hero__badge" aria-hidden="true">
-            <svg class="hero__ring" viewBox="0 0 200 200">
-              <defs><path id="heroRing" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" /></defs>
-              <text><textPath href="#heroRing" textLength="496" lengthAdjust="spacing">GRACEFUL ERA DESIGNS · BY ELINA GRIGORIADOU ·</textPath></text>
+            <svg class="hero__room" viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Illustration of a calm living room with an arched niche, a soft sofa with cushions, an arc floor lamp and a side table with a vase of branches">
+              <defs>
+                <linearGradient id="roomWall" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#e8e3dc" />
+                  <stop offset="1" stop-color="#f5f2ed" />
+                </linearGradient>
+                <radialGradient id="roomGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#f5f2ed" stop-opacity="0.95" />
+                  <stop offset="1" stop-color="#f5f2ed" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <rect width="400" height="500" fill="url(#roomWall)" />
+              <rect y="396" width="400" height="104" fill="#beb5af" fill-opacity="0.45" />
+              <line x1="0" y1="396" x2="400" y2="396" stroke="#404540" stroke-opacity="0.3" />
+              <!-- arched niche -->
+              <path d="M140 350V222a70 70 0 0 1 140 0v128z" fill="#f5f2ed" stroke="#404540" stroke-width="1.5" />
+              <path d="M153 350V223a57 57 0 0 1 114 0v127" fill="none" stroke="#beb5af" stroke-width="1.2" />
+              <!-- lamp glow -->
+              <ellipse cx="122" cy="252" rx="74" ry="96" fill="url(#roomGlow)" />
+              <!-- rug -->
+              <ellipse cx="210" cy="452" rx="176" ry="30" fill="#beb5af" fill-opacity="0.75" />
+              <ellipse cx="210" cy="452" rx="150" ry="22" fill="none" stroke="#f5f2ed" stroke-width="1.2" />
+              <!-- arc floor lamp -->
+              <ellipse cx="48" cy="394" rx="18" ry="4" fill="#404540" />
+              <path d="M48 392C48 262 62 152 122 142" fill="none" stroke="#404540" stroke-width="3" stroke-linecap="round" />
+              <line x1="122" y1="142" x2="122" y2="151" stroke="#404540" stroke-width="1.5" />
+              <path d="M99 173a23 23 0 0 1 46 0z" fill="#a07f5a" stroke="#404540" stroke-width="1.5" />
+              <!-- sofa -->
+              <ellipse cx="210" cy="402" rx="128" ry="6" fill="#404540" fill-opacity="0.14" />
+              <path d="M110 358v-34q0-22 22-22h156q22 0 22 22v34z" fill="#f5f2ed" stroke="#404540" stroke-width="1.5" />
+              <rect x="88" y="326" width="40" height="70" rx="20" fill="#f5f2ed" stroke="#404540" stroke-width="1.5" />
+              <rect x="292" y="326" width="40" height="70" rx="20" fill="#f5f2ed" stroke="#404540" stroke-width="1.5" />
+              <rect x="116" y="348" width="188" height="40" rx="14" fill="#f5f2ed" stroke="#404540" stroke-width="1.5" />
+              <line x1="210" y1="352" x2="210" y2="384" stroke="#404540" stroke-opacity="0.5" />
+              <rect x="104" y="396" width="6" height="8" rx="1" fill="#404540" />
+              <rect x="310" y="396" width="6" height="8" rx="1" fill="#404540" />
+              <rect x="130" y="313" width="46" height="40" rx="13" fill="#404540" transform="rotate(-6 153 333)" />
+              <rect x="244" y="315" width="44" height="38" rx="13" fill="#beb5af" stroke="#404540" stroke-width="1.2" transform="rotate(5 266 334)" />
+              <!-- side table with a vase of branches -->
+              <ellipse cx="364" cy="358" rx="26" ry="6" fill="#404540" />
+              <rect x="361" y="358" width="6" height="36" fill="#404540" />
+              <ellipse cx="364" cy="395" rx="14" ry="3.5" fill="#404540" />
+              <path d="M356 356q-3-22 5-28v-12h6v12q8 6 5 28z" fill="#beb5af" stroke="#404540" stroke-width="1.2" />
+              <g fill="none" stroke="#404540" stroke-width="1.2" stroke-linecap="round">
+                <path d="M364 316q-6-28-20-50" />
+                <path d="M364 316q4-32 20-56" />
+                <path d="M364 316q-1-24-3-46" />
+              </g>
+              <g fill="#404540">
+                <ellipse cx="352" cy="282" rx="5.5" ry="2.2" transform="rotate(-55 352 282)" />
+                <ellipse cx="346" cy="270" rx="5" ry="2" transform="rotate(-35 346 270)" />
+                <ellipse cx="371" cy="282" rx="5.5" ry="2.2" transform="rotate(60 371 282)" />
+                <ellipse cx="379" cy="266" rx="5" ry="2" transform="rotate(40 379 266)" />
+                <ellipse cx="362" cy="290" rx="5" ry="2" transform="rotate(-80 362 290)" />
+                <ellipse cx="361" cy="275" rx="4.5" ry="1.9" transform="rotate(80 361 275)" />
+              </g>
             </svg>
-            <svg class="mark"><use href="#ge-mark"/></svg>
+          </figure>
+          <!-- material swatches, like a designer's mood board -->
+          <div class="hero__swatches" aria-hidden="true">
+            <span class="swatch swatch--stone"></span>
+            <span class="swatch swatch--linen"></span>
+            <span class="swatch swatch--olive"></span>
+            <span class="swatch swatch--brass"></span>
           </div>
         </div>
       </div>
@@ -187,7 +240,7 @@
       <div class="contact__inner">
         <div class="contact__intro">
           <p class="eyebrow reveal">Contact Us</p>
-          <h2 class="reveal">Drop us a line!</h2>
+          <h2 class="reveal">Let us find out your new design</h2>
           <p class="reveal">Tell us about your space and your vision — we’d love to hear from you.</p>
           <a class="contact__email js-email reveal" href="mailto:elina@gracefuleradesigns.com">elina@gracefuleradesigns.com</a>
         </div>
@@ -248,7 +301,7 @@
     </div>
   </div>
 
-  <script src="config.js?v=12"></script>
-  <script src="script.js?v=12"></script>
+  <script src="config.js?v=13"></script>
+  <script src="script.js?v=13"></script>
 </body>
 </html>
