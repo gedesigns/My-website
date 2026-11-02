@@ -6,8 +6,11 @@ A static website for Graceful Era Designs (interior architecture & design). It n
 All text you'll want to change is in **`config.js`**:
 - `email` – shown in the footer and contact section, and where the contact form sends messages
 - `instagram` – your Instagram handle
-- `projects` – title, category, description and photo for each project
-  (put photos in `assets/img/` and set `image: "assets/img/your-photo.jpg"`)
+- `projects` – title, category, description and photos for each project
+  (put photos in `assets/img/projects/`). `image` is the card photo, `images` the gallery shown when the
+  project is opened (each with an optional caption), and `compare: { before, after }` shows a
+  before/after pair on the card. A card photo named `…-sm.jpg` is used on normal screens and the
+  same name without `-sm` on high-resolution phones.
 - `reels` – featured Instagram reels: link (Instagram → ••• → Copy link), cover image and caption.
   Each shows its cover; Instagram's player loads when a visitor taps it
 - `feed` – backup tiles for the live Instagram feed (the feed itself always shows the latest posts automatically)

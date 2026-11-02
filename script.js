@@ -15,30 +15,60 @@
   // ── Projects ──
   const grid = document.getElementById("projectsGrid");
   const meta = (p) => [p.category, p.year].filter(Boolean).join(" · ");
+  // photos shown when a project is opened; a project without a list shows its card photo
+  const photosOf = (p) => (p.images && p.images.length ? p.images : [{ src: p.image || (p.compare && p.compare.after), caption: "" }]);
+  // card photos: the lighter "-sm" file for normal screens, the full-size file for high-resolution phones
+  const cardImg = (src, alt) => {
+    const full = /-sm\.jpg$/.test(src) ? src.replace(/-sm\.jpg$/, ".jpg") : null;
+    const set = full ? ` srcset="${esc(src)} 720w, ${esc(full)} 1080w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) 31vw, 405px"` : "";
+    return `<img src="${esc(src)}"${set} alt="${esc(alt)}" loading="lazy" />`;
+  };
+  const coverOf = (p) =>
+    p.compare
+      ? `<div class="project__compare">
+          <figure><img src="${esc(p.compare.before)}" alt="${esc(p.title)}, before" loading="lazy" /><figcaption>Before</figcaption></figure>
+          <figure><img src="${esc(p.compare.after)}" alt="${esc(p.title)}, after" loading="lazy" /><figcaption>After</figcaption></figure>
+        </div>`
+      : cardImg(p.image, p.title);
   grid.innerHTML = S.projects
-    .map(
-      (p, i) => `
+    .map((p, i) => {
+      const n = photosOf(p).length;
+      return `
       <article class="project reveal" tabindex="0" data-index="${i}">
-        <div class="project__media"><img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" /></div>
+        <div class="project__media">${coverOf(p)}${n > 1 ? `<span class="project__count">${n} photos</span>` : ""}</div>
         <div class="project__info">
           <span>${esc(meta(p))}</span>
           <h3>${esc(p.title)}</h3>
         </div>
-      </article>`
-    )
+      </article>`;
+    })
     .join("");
 
-  // Lightbox
+  // Project pop-up with a photo gallery (arrows, keyboard and swipe)
   const lb = document.getElementById("lightbox");
   const lbClose = document.getElementById("lightboxClose");
+  const lbMedia = document.getElementById("lightboxMedia");
   let lastFocus = null;
+  let current = null;
+  let photoIndex = 0;
+  const showPhoto = (i) => {
+    const photos = photosOf(current);
+    photoIndex = (i + photos.length) % photos.length;
+    const ph = photos[photoIndex];
+    const many = photos.length > 1;
+    lbMedia.innerHTML = `
+      <img src="${esc(ph.src)}" alt="${esc(current.title + (ph.caption ? ": " + ph.caption : ""))}" />
+      ${many ? `<button class="lightbox__nav lightbox__nav--prev" type="button" data-step="-1" aria-label="Previous photo">←</button>
+                <button class="lightbox__nav lightbox__nav--next" type="button" data-step="1" aria-label="Next photo">→</button>` : ""}
+      ${ph.caption || many ? `<p class="lightbox__caption">${esc(ph.caption || "")}${many ? `<span>${photoIndex + 1} / ${photos.length}</span>` : ""}</p>` : ""}`;
+  };
   const openProject = (i) => {
     lastFocus = document.activeElement;
-    const p = S.projects[i];
-    document.getElementById("lightboxMedia").innerHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}" />`;
-    document.getElementById("lightboxMeta").textContent = meta(p);
-    document.getElementById("lightboxTitle").textContent = p.title;
-    document.getElementById("lightboxDesc").textContent = p.description;
+    current = S.projects[i];
+    showPhoto(0);
+    document.getElementById("lightboxMeta").textContent = meta(current);
+    document.getElementById("lightboxTitle").textContent = current.title;
+    document.getElementById("lightboxDesc").textContent = current.description;
     lb.classList.add("is-open");
     lb.inert = false;
     document.body.style.overflow = "hidden";
@@ -62,9 +92,26 @@
       openProject(+card.dataset.index);
     }
   });
+  lbMedia.addEventListener("click", (e) => {
+    const btn = e.target.closest(".lightbox__nav");
+    if (btn) showPhoto(photoIndex + +btn.dataset.step);
+  });
+  let touchX = null;
+  lbMedia.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true });
+  lbMedia.addEventListener("touchend", (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) > 40 && photosOf(current).length > 1) showPhoto(photoIndex + (dx < 0 ? 1 : -1));
+  });
   lbClose.addEventListener("click", closeLb);
   lb.addEventListener("click", (e) => e.target === lb && closeLb());
-  document.addEventListener("keydown", (e) => e.key === "Escape" && closeLb());
+  document.addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("is-open")) return;
+    if (e.key === "Escape") closeLb();
+    else if (e.key === "ArrowRight") showPhoto(photoIndex + 1);
+    else if (e.key === "ArrowLeft") showPhoto(photoIndex - 1);
+  });
 
   // Instagram's embed script turns <blockquote class="instagram-media"> into players and feeds.
   // Loaded on demand: when a reel is tapped or the live feed comes near the screen.
@@ -90,7 +137,7 @@
       <div class="reel">
         <a class="reel__cover" href="${esc(permalink(r.url))}" target="_blank" rel="noopener" data-index="${i}"
            aria-label="Play reel${r.caption ? ": " + esc(r.caption) : ""}">
-          ${r.cover ? `<img src="${esc(r.cover)}" alt="" loading="lazy" />` : `<svg class="mark" aria-hidden="true"><use href="#ge-mark"/></svg>`}
+          ${r.cover ? `<img src="${esc(r.cover)}"${r.coverLarge ? ` srcset="${esc(r.cover)} 720w, ${esc(r.coverLarge)} 1080w" sizes="(max-width: 760px) 86vw, 340px"` : ""} alt="" loading="lazy" />` : `<svg class="mark" aria-hidden="true"><use href="#ge-mark"/></svg>`}
           <span class="reel__play" aria-hidden="true"></span>
           <span class="reel__meta"><small>@${esc(S.instagram)}</small>${r.caption ? `<span>${esc(r.caption)}</span>` : ""}</span>
         </a>
