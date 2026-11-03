@@ -12,42 +12,63 @@
   document.querySelectorAll(".js-ig-handle").forEach((el) => (el.textContent = "@" + S.instagram));
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // ── Projects ──
-  const grid = document.getElementById("projectsGrid");
+  // ── Projects and journal stories: cards that open a gallery ──
   const meta = (p) => [p.category, p.year].filter(Boolean).join(" · ");
-  // photos shown when a project is opened; a project without a list shows its card photo
+  // photos shown when a card is opened; a card without a list shows its card photo
   const photosOf = (p) => (p.images && p.images.length ? p.images : [{ src: p.image || (p.compare && p.compare.after), caption: "" }]);
-  // card photos: the lighter "-sm" file for normal screens, the full-size file for high-resolution phones
-  const cardImg = (src, alt) => {
+  // card photos: the lighter "-sm" file for normal screens, the full-size file for high-resolution screens
+  const cardImg = (src, alt, sizes) => {
     const full = /-sm\.jpg$/.test(src) ? src.replace(/-sm\.jpg$/, ".jpg") : null;
-    const set = full ? ` srcset="${esc(src)} 720w, ${esc(full)} 1080w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) 31vw, 405px"` : "";
+    const set = full ? ` srcset="${esc(src)} 720w, ${esc(full)} 1080w" sizes="${sizes}"` : "";
     return `<img src="${esc(src)}"${set} alt="${esc(alt)}" loading="lazy" />`;
   };
-  const coverOf = (p) =>
+  const coverOf = (p, sizes) =>
     p.compare
       ? `<div class="project__compare">
           <figure><img src="${esc(p.compare.before)}" alt="${esc(p.title)}, before" loading="lazy" /><figcaption>Before</figcaption></figure>
           <figure><img src="${esc(p.compare.after)}" alt="${esc(p.title)}, after" loading="lazy" /><figcaption>After</figcaption></figure>
         </div>`
-      : cardImg(p.image, p.title);
-  grid.innerHTML = S.projects
-    .map((p, i) => {
-      const n = photosOf(p).length;
-      return `
+      : cardImg(p.image, p.title, sizes);
+  const countOf = (p, unit) => {
+    const photos = photosOf(p);
+    const clips = photos.filter((ph) => ph.video).length;
+    if (photos.length < 2) return "";
+    return clips ? `${photos.length - clips} photos + ${clips} videos` : `${photos.length} ${unit}`;
+  };
+  const renderCards = (el, items, sizes, unit) => {
+    if (!el || !items) return;
+    el.innerHTML = items
+      .map((p, i) => {
+        const count = countOf(p, unit);
+        return `
       <article class="project reveal" tabindex="0" data-index="${i}">
-        <div class="project__media">${coverOf(p)}${n > 1 ? `<span class="project__count">${n} photos</span>` : ""}</div>
+        <div class="project__media">${coverOf(p, sizes)}${count ? `<span class="project__count">${count}</span>` : ""}</div>
         <div class="project__info">
           <span>${esc(meta(p))}</span>
           <h3>${esc(p.title)}</h3>
         </div>
       </article>`;
-    })
-    .join("");
+      })
+      .join("");
+    el.addEventListener("click", (e) => {
+      const card = e.target.closest(".project");
+      if (card) openItem(items[+card.dataset.index]);
+    });
+    el.addEventListener("keydown", (e) => {
+      const card = e.target.closest(".project");
+      if (card && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        openItem(items[+card.dataset.index]);
+      }
+    });
+  };
 
-  // Project pop-up with a photo gallery (arrows, keyboard and swipe)
+  // Pop-up gallery (arrows, keyboard and swipe); a video item plays as a short silent loop
   const lb = document.getElementById("lightbox");
   const lbClose = document.getElementById("lightboxClose");
   const lbMedia = document.getElementById("lightboxMedia");
+  const lbLink = document.getElementById("lightboxLink");
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
   let lastFocus = null;
   let current = null;
   let photoIndex = 0;
@@ -56,19 +77,31 @@
     photoIndex = (i + photos.length) % photos.length;
     const ph = photos[photoIndex];
     const many = photos.length > 1;
+    const label = esc(current.title + (ph.caption ? ": " + ph.caption : ""));
     lbMedia.innerHTML = `
-      <img src="${esc(ph.src)}" alt="${esc(current.title + (ph.caption ? ": " + ph.caption : ""))}" />
-      ${many ? `<button class="lightbox__nav lightbox__nav--prev" type="button" data-step="-1" aria-label="Previous photo">←</button>
-                <button class="lightbox__nav lightbox__nav--next" type="button" data-step="1" aria-label="Next photo">→</button>` : ""}
+      ${ph.video
+        ? `<video src="${esc(ph.video)}" poster="${esc(ph.src)}" muted loop playsinline preload="auto" aria-label="${label}"></video>`
+        : `<img src="${esc(ph.src)}" alt="${label}" />`}
+      ${many ? `<button class="lightbox__nav lightbox__nav--prev" type="button" data-step="-1" aria-label="Previous">←</button>
+                <button class="lightbox__nav lightbox__nav--next" type="button" data-step="1" aria-label="Next">→</button>` : ""}
       ${ph.caption || many ? `<p class="lightbox__caption">${esc(ph.caption || "")}${many ? `<span>${photoIndex + 1} / ${photos.length}</span>` : ""}</p>` : ""}`;
+    const video = lbMedia.querySelector("video");
+    if (video) {
+      video.muted = true;
+      // plays on its own unless the visitor prefers less motion (or the browser blocks it): then it gets play controls
+      if (calm.matches) video.controls = true;
+      else video.play().catch(() => (video.controls = true));
+    }
   };
-  const openProject = (i) => {
+  const openItem = (item) => {
     lastFocus = document.activeElement;
-    current = S.projects[i];
+    current = item;
     showPhoto(0);
-    document.getElementById("lightboxMeta").textContent = meta(current);
-    document.getElementById("lightboxTitle").textContent = current.title;
-    document.getElementById("lightboxDesc").textContent = current.description;
+    document.getElementById("lightboxMeta").textContent = meta(item);
+    document.getElementById("lightboxTitle").textContent = item.title;
+    document.getElementById("lightboxDesc").textContent = item.description || "";
+    lbLink.hidden = !item.post;
+    if (item.post) lbLink.href = item.post;
     lb.classList.add("is-open");
     lb.inert = false;
     document.body.style.overflow = "hidden";
@@ -79,19 +112,11 @@
     lb.classList.remove("is-open");
     lb.inert = true;
     document.body.style.overflow = "";
+    lbMedia.innerHTML = ""; // stops a playing video
     if (lastFocus) lastFocus.focus();
   };
-  grid.addEventListener("click", (e) => {
-    const card = e.target.closest(".project");
-    if (card) openProject(+card.dataset.index);
-  });
-  grid.addEventListener("keydown", (e) => {
-    const card = e.target.closest(".project");
-    if (card && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      openProject(+card.dataset.index);
-    }
-  });
+  renderCards(document.getElementById("projectsGrid"), S.projects, "(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) 31vw, 405px", "photos");
+  renderCards(document.getElementById("journalGrid"), S.journal, "(max-width: 980px) calc(50vw - 30px), (max-width: 1280px) 23vw, 300px", "slides");
   lbMedia.addEventListener("click", (e) => {
     const btn = e.target.closest(".lightbox__nav");
     if (btn) showPhoto(photoIndex + +btn.dataset.step);
@@ -143,7 +168,16 @@
         </a>
       </div>`
     )
-    .join("");
+    .join("") +
+    // last tile: every reel, on Instagram's Reels tab
+    `
+      <div class="reel">
+        <a class="reel__more" href="${igUrl}reels/" target="_blank" rel="noopener">
+          <svg class="mark" aria-hidden="true"><use href="#ge-mark"/></svg>
+          <span>More reels on Instagram</span>
+          <small>@${esc(S.instagram)} →</small>
+        </a>
+      </div>`;
   track.addEventListener("click", (e) => {
     const cover = e.target.closest(".reel__cover");
     if (!cover) return;

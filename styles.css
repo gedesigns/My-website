@@ -263,9 +263,10 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
   background: rgba(245, 242, 237, 0.92); color: var(--olive); font-size: 0.72rem; font-weight: 500;
 }
 /* before/after pair on the card */
-.project__compare { display: grid; grid-template-rows: 2fr 3fr; gap: 4px; height: 100%; background: var(--ivory); }
+.project__compare { display: grid; grid-template-rows: 1fr 1fr; gap: 4px; height: 100%; background: var(--ivory); }
 .project__compare figure { position: relative; overflow: hidden; margin: 0; }
 .project__compare img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
+.project__compare figure + figure img { object-position: 50% 62%; }
 .project__compare figcaption {
   position: absolute; left: 0.8rem; bottom: 0.8rem; padding: 0.25rem 0.7rem; border-radius: 999px;
   background: rgba(245, 242, 237, 0.92); color: var(--olive); font-size: 0.72rem; font-weight: 500;
@@ -308,8 +309,21 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
 .reel__meta small { font-size: 0.72rem; font-weight: 500; opacity: 0.85; }
 .reel__meta span { font-family: var(--serif); font-size: 1.15rem; line-height: 1.3; }
 .reel__fallback > span { position: absolute; left: 0; right: 0; top: 58%; text-align: center; font-size: 0.8rem; font-weight: 500; color: var(--taupe); }
+.reel__more {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; aspect-ratio: 9 / 16;
+  border-radius: var(--radius); background: var(--olive); color: var(--ivory); text-align: center; padding: 2rem;
+  transition: background 0.3s var(--ease);
+}
+.reel__more:hover, .reel__more:focus-visible { background: var(--olive-deep); }
+.reel__more .mark { width: 64px; height: 64px; color: var(--taupe); }
+.reel__more span { font-family: var(--serif); font-size: 1.6rem; line-height: 1.25; max-width: 12ch; }
+.reel__more small { font-size: 0.78rem; font-weight: 500; color: var(--taupe); }
 .reel iframe { min-width: 0 !important; width: 100% !important; max-width: none !important; margin: 0 !important; border: 0 !important; border-radius: var(--radius) !important; box-shadow: 0 10px 24px -16px rgba(38, 42, 37, 0.4) !important; }
 .reel blockquote { margin: 0; }
+
+/* Journal: Instagram carousel posts as story cards (same card as projects, four to a row) */
+.journal__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2vw, 1.6rem); max-width: 1280px; margin: 0 auto; }
+.journal__grid .project__info h3 { font-size: 1.25rem; line-height: 1.3; }
 
 /* Live Instagram feed: intro on the left, Instagram's profile embed (latest posts) on the right */
 .feed {
@@ -402,7 +416,8 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
 .lightbox.is-open .lightbox__inner { transform: none; }
 /* gallery: whole photo shown (portrait or landscape), arrows, caption and counter */
 .lightbox__media { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 360px; background: var(--stone); }
-.lightbox__media img { display: block; width: 100%; height: auto; max-height: 76vh; object-fit: contain; }
+.lightbox__media img, .lightbox__media video { display: block; width: 100%; height: auto; max-height: 76vh; object-fit: contain; }
+.lightbox__media video { aspect-ratio: 4 / 5; background: var(--stone); }
 .lightbox__nav {
   position: absolute; top: 50%; width: 44px; height: 44px; margin-top: -22px; border: 0; border-radius: 50%;
   background: rgba(245, 242, 237, 0.92); color: var(--olive); font-size: 1.1rem; cursor: pointer;
@@ -414,12 +429,16 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
 /* caption sits below the photo, so it reads cleanly on portrait and landscape photos alike */
 .lightbox__caption {
   align-self: stretch; margin: 0; padding: 0.8rem 1.1rem;
-  display: flex; justify-content: space-between; gap: 1rem; color: var(--olive); font-size: 0.85rem; background: var(--stone);
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; color: var(--olive); font-size: 0.85rem; line-height: 1.55; background: var(--stone);
 }
 .lightbox__caption span { flex: none; color: var(--ink-soft); }
 .lightbox__info { padding: clamp(1.8rem, 4vw, 3rem); align-self: center; }
 .lightbox__info h3 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin-bottom: 1.1rem; }
-.lightbox__info p:last-child { color: var(--ink-soft); }
+.lightbox__desc { color: var(--ink-soft); }
+.lightbox__link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--bronze-ink); border-bottom: 1px solid currentColor; }
+.lightbox__link::after { content: "↗"; }
+.lightbox__link:hover { color: var(--ink); }
+.lightbox__link[hidden] { display: none; }
 .lightbox__close { position: absolute; top: 1rem; right: 1.4rem; background: none; border: 0; color: var(--ivory); font-size: 2.6rem; font-weight: 200; cursor: pointer; line-height: 1; }
 
 /* Reveal animation */
@@ -447,7 +466,8 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
   .footer__top { grid-template-columns: 1fr 1fr; }
   .lightbox__inner { grid-template-columns: 1fr; }
   .lightbox__media { min-height: 240px; }
-  .lightbox__media img { max-height: 58vh; }
+  .lightbox__media img, .lightbox__media video { max-height: 58vh; }
+  .journal__grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 900px) {
   .hero__inner { grid-template-columns: 1fr; }
@@ -467,6 +487,11 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
   .studio__img--b { width: 44%; }
   .studio__img--a figcaption { font-size: 1.05rem; padding: 2.5rem 1rem 0.9rem; }
   .projects__grid { grid-template-columns: 1fr; }
+  .journal__grid { gap: 1.2rem 0.9rem; }
+  .journal__grid .project__info h3 { font-size: 1.05rem; }
+  .journal__grid .project__info span { font-size: 0.68rem; padding: 0.15rem 0.6rem; }
+  .journal__grid .project__count { left: 0.6rem; top: 0.6rem; }
+  .journal__grid .project__media::after { display: none; }
   .stats { grid-template-columns: 1fr; }
   .services__list li { grid-template-columns: 2.5rem minmax(0, 1fr); padding: 1.6rem 0.4rem; }
   .services__list p { grid-column: 2; }

@@ -8,11 +8,15 @@ All text you'll want to change is in **`config.js`**:
 - `instagram` – your Instagram handle
 - `projects` – title, category, description and photos for each project
   (put photos in `assets/img/projects/`). `image` is the card photo, `images` the gallery shown when the
-  project is opened (each with an optional caption), and `compare: { before, after }` shows a
-  before/after pair on the card. A card photo named `…-sm.jpg` is used on normal screens and the
-  same name without `-sm` on high-resolution phones.
+  project is opened (each with an optional caption; add `video: "assets/video/….mp4"` to play a short
+  silent clip, with `src` as its still), and `compare: { before, after }` shows a before/after pair on
+  the card. `post` (optional) links to the Instagram post. A card photo named `…-sm.jpg` is used on
+  normal screens and the same name without `-sm` on high-resolution screens.
+- `journal` – Instagram carousel posts shown as stories: same fields as a project; the card shows the
+  first slide and tapping it opens every slide (photos in `assets/img/journal/`)
 - `reels` – featured Instagram reels: link (Instagram → ••• → Copy link), cover image and caption.
-  Each shows its cover; Instagram's player loads when a visitor taps it
+  Each shows its cover; Instagram's player loads when a visitor taps it. The row ends with a
+  "More reels on Instagram" tile that opens the Reels tab of the profile
 - `feed` – backup tiles for the live Instagram feed (the feed itself always shows the latest posts automatically)
 
 After changing `config.js`, `styles.css` or `script.js`, raise the `?v=` number where
