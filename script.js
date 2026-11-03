@@ -229,8 +229,9 @@
     { rootMargin: "600px 0px" }
   ).observe(feedLive);
 
-  // ── Contact form: sends the message straight to Elina's inbox through FormSubmit (formsubmit.co),
-  //    a free form-to-email service. If that fails, the visitor's email app opens with the message instead. ──
+  // ── Contact form: sends the message straight to Elina's inbox through Web3Forms (web3forms.com),
+  //    a free form-to-email service, using the Access Key in config.js (formKey).
+  //    Without a key, or if sending fails, the visitor's email app opens with the message ready instead. ──
   const form = document.getElementById("contactForm");
   const note = document.getElementById("formNote");
   const sendBtn = form.querySelector('button[type="submit"]');
@@ -256,19 +257,25 @@
       return;
     }
     if (d.get("_honey")) return; // the hidden spam trap was filled in: a bot
+    if (!S.formKey) {
+      note.textContent = "Your email app will open with your message ready. Just press send.";
+      openEmailApp(name, email, message);
+      return;
+    }
     sendBtn.disabled = true;
     note.textContent = "Sending…";
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${S.email}`, {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
+          access_key: S.formKey,
+          subject: `New enquiry from ${name || email} · gracefuleradesigns.com`,
+          from_name: "gracefuleradesigns.com",
+          replyto: email,
           name,
           email,
           message,
-          _subject: `New enquiry from ${name || email} · gracefuleradesigns.com`,
-          _template: "table",
-          _captcha: "false",
         }),
       });
       const data = await res.json().catch(() => ({}));

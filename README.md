@@ -23,10 +23,12 @@ After changing `config.js`, `styles.css` or `script.js`, raise the `?v=` number 
 `index.html` loads them, so visitors' browsers fetch the new version instead of a cached one.
 
 ## Contact form
-Messages are emailed to the address in `config.js` (`email`) through FormSubmit (formsubmit.co), a free
-form-to-email service. The first message sent to a new address triggers a one-time FormSubmit email asking
-to **Activate Form**; click it and every message after that arrives in the inbox. If FormSubmit can't be
-reached, the visitor's email app opens with the message ready to send instead.
+Messages are emailed through Web3Forms (web3forms.com), a free form-to-email service (250 messages a month).
+To set it up: on web3forms.com enter the address that should receive the messages and press
+**Create Access Key**; Web3Forms emails the key to that address. Put the key in `config.js` as `formKey`
+(it is meant to be public). Messages then arrive from Web3Forms with the visitor's address as reply-to.
+While `formKey` is empty, or if Web3Forms can't be reached, the visitor's email app opens with the message
+ready to send instead.
 
 ## Brand assets
 - `assets/brand/` – the original logo files plus `logo-mark.svg`, a vector trace of the mark

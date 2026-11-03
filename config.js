@@ -14,6 +14,12 @@ window.SITE = {
   email: "elina@gracefuleradesigns.com",
   instagram: "gracefuleradesigns",
 
+  // ── Contact form ──
+  // Messages from the website's form are emailed to the address above through Web3Forms (web3forms.com).
+  // formKey is the Access Key Web3Forms emails to that address (it's safe to publish).
+  // While it's empty, the form opens the visitor's email app with their message ready to send.
+  formKey: "",
+
   // ── Projects ──
   // image:   the photo on the project card (put photos in assets/img/projects/)
   // images:  the photos shown when the project is opened, each with an optional caption;
