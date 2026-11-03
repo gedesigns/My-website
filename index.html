@@ -17,12 +17,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=19" />
+  <link rel="stylesheet" href="styles.css?v=20" />
 </head>
 <body>
   <!-- Logo mark (traced from the original logo), reused below with <use href="#ge-mark"> -->
   <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
     <symbol id="ge-mark" viewBox="0 0 1182 1182"><path fill-rule="evenodd" d="M547.5 1173.9C415.8 1163.4 295.5 1111.6 198 1023.6C98.2 933.3 31.2 808.2 12.1 676.4C4.9 627.1 4 571.3 9.6 523C35.3 298.7 191 107.4 406.2 35.6C453.9 19.7 500.4 10.6 552.9 6.9C574 5.4 628.2 6.3 648.5 8.5C774 21.8 886.2 71.2 979.5 154.1C1003.9 175.8 1033.4 207.3 1054.1 234C1080.9 268.3 1111.5 319.9 1126.4 355.4L1127.9 359L1105.7 358.9L1083.5 358.9L1077.8 347.2C1046.5 282.9 995.2 218.5 937.5 170.9C822.9 76.3 676.1 32.8 528.5 49.6C494 53.5 466.7 59.3 424.7 71.7C423.4 72.1 429.4 75.6 443.7 82.9C500.2 111.7 548 146.5 596.3 194C700.7 296.5 766.7 428.4 778.9 559C779.5 564.8 780.2 578.8 780.6 590.2L781.3 611L413.7 611L46 611L46.5 613.8C46.7 615.3 47.2 621.9 47.5 628.5C47.8 635.1 49 647.7 50.1 656.5C62.3 753.2 99.5 838.2 161.3 910.9C173.7 925.5 201.9 953.4 216.9 965.9C251 994.3 281.8 1014.3 322.5 1034.5C386.7 1066.3 452.6 1084.7 530 1092.5C564.5 1096 623.6 1095.5 659.5 1091.4C799.7 1075.5 908.7 1009.7 977.5 899.5C1024.6 824.1 1052 724.8 1055.3 618L1055.5 610.5L1115.4 610.2L1175.3 610L1174.7 624.2C1172.1 681.2 1158.1 745.4 1135.7 803C1074.1 961.8 942 1088.4 780.5 1143.6C737 1158.5 696.6 1167.4 649 1172.6C632.1 1174.5 565 1175.3 547.5 1173.9ZM655 566.2C655 560.1 652.2 536.6 649.5 520C629.1 394.9 563.2 280 464.8 197.8C433.2 171.3 400.3 149.7 362.2 130.3L345.9 122L331.7 129.1C245.5 172.2 170.8 239.9 118.9 322C106.2 342 100.7 352.1 92.9 369.6C65.5 431.1 50.5 494.5 46.7 563.8L46.4 570L350.7 570L655 570L655 566.2Z"/></symbol>
+    <!-- the empty room used by the Process illustrations -->
+    <symbol id="pr-room" viewBox="0 0 400 500">
+      <defs>
+        <linearGradient id="prWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e8e3dc" />
+          <stop offset="1" stop-color="#f5f2ed" />
+        </linearGradient>
+      </defs>
+      <rect width="400" height="500" fill="url(#prWall)" />
+      <rect y="396" width="400" height="104" fill="#beb5af" fill-opacity="0.45" />
+      <line x1="0" y1="396" x2="400" y2="396" stroke="#404540" stroke-opacity="0.3" />
+      <path d="M140 350V222a70 70 0 0 1 140 0v128z" fill="#f5f2ed" stroke="#404540" stroke-width="1.5" />
+      <path d="M153 350V223a57 57 0 0 1 114 0v127" fill="none" stroke="#beb5af" stroke-width="1.2" />
+    </symbol>
   </svg>
 
   <header class="nav" id="nav">
@@ -233,34 +247,292 @@
       </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- SERVICES: material sample cards, each with a drawn icon -->
     <section class="services section" id="services">
       <div class="section__head">
         <div class="label reveal"><span class="num">05</span><p class="eyebrow">What We Do</p></div>
         <h2 class="reveal">Services</h2>
       </div>
       <ol class="services__list">
-        <li class="reveal"><span>i.</span><h3>Interior Architecture</h3><p>Space planning, layouts and architectural detailing that make every square metre work beautifully.</p></li>
-        <li class="reveal"><span>ii.</span><h3>Interior Design &amp; Styling</h3><p>Curated palettes, furniture, lighting and art — composed into a cohesive, personal whole.</p></li>
-        <li class="reveal"><span>iii.</span><h3>Bespoke Joinery</h3><p>Custom kitchens, wardrobes and built-ins designed to the millimetre and crafted to last.</p></li>
-        <li class="reveal"><span>iv.</span><h3>Material Selection</h3><p>Stone, timber, textiles and finishes chosen for beauty, feel and longevity.</p></li>
-        <li class="reveal"><span>v.</span><h3>Renovation &amp; Site Coordination</h3><p>Clear guidance from concept to handover, coordinating trades so you can enjoy the process.</p></li>
-        <li class="reveal"><span>vi.</span><h3>Commercial Interiors</h3><p>Boutiques, cafés and offices with a strong identity and a memorable atmosphere.</p></li>
+        <li class="chip chip--velvet reveal" data-play style="--i:0">
+          <div class="chip__colour">
+            <svg class="chip__icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path pathLength="1" d="M10 12h44v40H10z"/>
+              <path pathLength="1" d="M30 12v16M30 38v14"/>
+              <path pathLength="1" d="M30 28h10M40 28a10 10 0 0 1-10 10"/>
+              <path pathLength="1" d="M38 16h10"/>
+              <path pathLength="1" d="M15 41h10v7H15z"/>
+              <path pathLength="1" d="M40 44a4 4 0 1 0 8 0a4 4 0 1 0-8 0"/>
+            </svg>
+          </div>
+          <div class="chip__label">
+            <p class="chip__code"><span>i.</span><span>Olive velvet</span></p>
+            <h3>Interior Architecture</h3>
+            <p>Space planning, layouts and architectural detailing that make every square metre work beautifully.</p>
+          </div>
+        </li>
+        <li class="chip chip--linen reveal" data-play style="--i:1">
+          <div class="chip__colour">
+            <svg class="chip__icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path pathLength="1" d="M32 4v6"/>
+              <path pathLength="1" d="M25 17a7 7 0 0 1 14 0z"/>
+              <path pathLength="1" d="M27 21l-2 3M32 22v3M37 21l2 3"/>
+              <path pathLength="1" d="M17 41v-6a5 5 0 0 1 5-5h20a5 5 0 0 1 5 5v6"/>
+              <path pathLength="1" d="M9 50v-8a4 4 0 0 1 8 0v4h30v-4a4 4 0 0 1 8 0v8z"/>
+              <path pathLength="1" d="M13 50v4M51 50v4"/>
+            </svg>
+          </div>
+          <div class="chip__label">
+            <p class="chip__code"><span>ii.</span><span>Taupe linen</span></p>
+            <h3>Interior Design &amp; Styling</h3>
+            <p>Curated palettes, furniture, lighting and art — composed into a cohesive, personal whole.</p>
+          </div>
+        </li>
+        <li class="chip chip--oak reveal" data-play style="--i:2">
+          <div class="chip__colour">
+            <svg class="chip__icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path pathLength="1" d="M12 8h40"/>
+              <path pathLength="1" d="M15 8v46h34V8"/>
+              <path pathLength="1" d="M32 8v42M15 50h34"/>
+              <path pathLength="1" d="M28 26v8M36 26v8"/>
+              <path pathLength="1" d="M18 54v3M46 54v3"/>
+            </svg>
+          </div>
+          <div class="chip__label">
+            <p class="chip__code"><span>iii.</span><span>Bronze oak</span></p>
+            <h3>Bespoke Joinery</h3>
+            <p>Custom kitchens, wardrobes and built-ins designed to the millimetre and crafted to last.</p>
+          </div>
+        </li>
+        <li class="chip chip--boucle reveal" data-play style="--i:3">
+          <div class="chip__colour">
+            <svg class="chip__icon" viewBox="0 0 64 64" aria-hidden="true">
+              <g transform="rotate(-28 32 50)"><path class="fill" pathLength="1" d="M29 12h6a3 3 0 0 1 3 3v35H26V15a3 3 0 0 1 3-3z"/><path pathLength="1" d="M26 22h12"/></g>
+              <g transform="rotate(28 32 50)"><path class="fill" pathLength="1" d="M29 12h6a3 3 0 0 1 3 3v35H26V15a3 3 0 0 1 3-3z"/><path pathLength="1" d="M26 22h12"/></g>
+              <g><path class="fill" pathLength="1" d="M29 12h6a3 3 0 0 1 3 3v35H26V15a3 3 0 0 1 3-3z"/><path pathLength="1" d="M26 22h12"/></g>
+              <path pathLength="1" d="M30 45a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
+            </svg>
+          </div>
+          <div class="chip__label">
+            <p class="chip__code"><span>iv.</span><span>Ivory bouclé</span></p>
+            <h3>Material Selection</h3>
+            <p>Stone, timber, textiles and finishes chosen for beauty, feel and longevity.</p>
+          </div>
+        </li>
+        <li class="chip chip--plaster reveal" data-play style="--i:4">
+          <div class="chip__colour">
+            <svg class="chip__icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path pathLength="1" d="M14 22h22a6 6 0 0 1 6 6v16a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V28a6 6 0 0 1 6-6z"/>
+              <path pathLength="1" d="M19 36a6 6 0 1 0 12 0a6 6 0 1 0-12 0"/>
+              <path pathLength="1" d="M18 22v-4h8v4"/>
+              <path pathLength="1" d="M42 44h15M42 50h15M57 44v6"/>
+              <path pathLength="1" d="M46 44v3M50 44v2M54 44v3"/>
+            </svg>
+          </div>
+          <div class="chip__label">
+            <p class="chip__code"><span>v.</span><span>Deep olive plaster</span></p>
+            <h3>Renovation &amp; Site Coordination</h3>
+            <p>Clear guidance from concept to handover, coordinating trades so you can enjoy the process.</p>
+          </div>
+        </li>
+        <li class="chip chip--leather reveal" data-play style="--i:5">
+          <div class="chip__colour">
+            <svg class="chip__icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path pathLength="1" d="M12 28v26h40V28"/>
+              <path pathLength="1" d="M8 28l5-12h38l5 12"/>
+              <path pathLength="1" d="M8 28a6 6 0 0 0 12 0a6 6 0 0 0 12 0a6 6 0 0 0 12 0a6 6 0 0 0 12 0"/>
+              <path pathLength="1" d="M20 16l-2 12M32 16v12M44 16l2 12"/>
+              <path pathLength="1" d="M36 38h9v16h-9z"/>
+              <path pathLength="1" d="M17 38h13v9H17z"/>
+              <path pathLength="1" d="M6 54h52"/>
+            </svg>
+          </div>
+          <div class="chip__label">
+            <p class="chip__code"><span>vi.</span><span>Cognac leather</span></p>
+            <h3>Commercial Interiors</h3>
+            <p>Boutiques, cafés and offices with a strong identity and a memorable atmosphere.</p>
+          </div>
+        </li>
       </ol>
     </section>
 
-    <!-- PROCESS -->
+    <!-- PROCESS: one room, drawn at each step, from empty to finished -->
     <section class="process section">
       <div class="section__head">
         <div class="label reveal"><span class="num">06</span><p class="eyebrow">How We Work</p></div>
         <h2 class="reveal">Process</h2>
+        <p class="section__sub reveal">One room, four steps: from an empty space to the final styled detail.</p>
       </div>
-      <div class="process__steps">
-        <div class="reveal"><em>01</em><h3>Discover</h3><p>We listen — to how you live, work and what you love.</p></div>
-        <div class="reveal"><em>02</em><h3>Concept</h3><p>Mood, layout and material direction take shape.</p></div>
-        <div class="reveal"><em>03</em><h3>Design</h3><p>Drawings, details and specifications, refined together.</p></div>
-        <div class="reveal"><em>04</em><h3>Realise</h3><p>We oversee the build and style every final detail.</p></div>
-      </div>
+      <ol class="process__steps">
+        <li class="step reveal" data-play style="--i:0">
+          <figure class="step__scene">
+            <div class="step__arch">
+              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                <use href="#pr-room"/>
+                <!-- a note on the wall: what you love -->
+                <g class="pr-pop">
+                  <rect x="72" y="212" width="40" height="40" rx="2" fill="#f5f2ed" stroke="#404540" stroke-width="1.2" transform="rotate(-6 92 232)"/>
+                  <path d="M92 227c-3-5-11-4-11 2c0 5 6 9 11 13c5-4 11-8 11-13c0-6-8-7-11-2z" fill="#a07f5a"/>
+                </g>
+                <!-- measuring the space -->
+                <g class="pr-tape">
+                  <rect x="92" y="446" width="226" height="9" fill="#a07f5a"/>
+                  <path d="M104 446v4M116 446v3M128 446v4M140 446v3M152 446v4M164 446v3M176 446v4M188 446v3M200 446v4M212 446v3M224 446v4M236 446v3M248 446v4M260 446v3M272 446v4M284 446v3M296 446v4M308 446v3" stroke="#f5f2ed" stroke-width="1.2"/>
+                  <rect x="316" y="442" width="4" height="17" rx="1.5" fill="#404540"/>
+                </g>
+                <rect x="62" y="424" width="14" height="7" rx="2" fill="#404540"/>
+                <rect x="50" y="430" width="46" height="40" rx="10" fill="#404540"/>
+                <circle cx="72" cy="450" r="9" fill="none" stroke="#beb5af" stroke-width="1.5"/>
+                <!-- notebook with a first sketch -->
+                <path d="M232 488q28-8 56-2q28-6 56 2v-24q-28-8-56-2q-28-6-56 2z" fill="#f5f2ed" stroke="#404540" stroke-width="1.2"/>
+                <path d="M288 462v24" stroke="#404540" stroke-opacity=".5"/>
+                <path d="M243 470q16-4 35-1M243 477q14-3 29 0" fill="none" stroke="#beb5af" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M300 467h30v14h-30zM315 467v14" fill="none" stroke="#7a5c3c" stroke-width="1.1"/>
+              </svg>
+            </div>
+          </figure>
+          <div class="step__meta"><em>01</em></div>
+          <h3>Discover</h3>
+          <p>We listen — to how you live, work and what you love.</p>
+        </li>
+        <li class="step reveal" data-play style="--i:1">
+          <figure class="step__scene">
+            <div class="step__arch">
+              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                <use href="#pr-room"/>
+                <!-- samples pinned up in the niche -->
+                <g class="pr-drop" style="--j:0"><rect x="160" y="204" width="46" height="58" rx="3" fill="#404540" transform="rotate(-5 183 233)"/><circle cx="182" cy="210" r="2.6" fill="#a07f5a"/></g>
+                <g class="pr-drop" style="--j:1"><rect x="214" y="198" width="46" height="40" rx="3" fill="#a07f5a" transform="rotate(5 237 218)"/><circle cx="237" cy="203" r="2.6" fill="#404540"/></g>
+                <g class="pr-drop" style="--j:2"><g transform="rotate(3 186 299)"><rect x="164" y="272" width="44" height="54" rx="3" fill="#beb5af"/><path d="M168 282h36M168 290h36M168 298h36M168 306h36M168 314h36" stroke="#f5f2ed" stroke-opacity=".6"/></g></g>
+                <g class="pr-drop" style="--j:3"><circle cx="240" cy="268" r="20" fill="#7a5c3c"/><circle cx="240" cy="268" r="12" fill="none" stroke="#f5f2ed" stroke-opacity=".5"/></g>
+                <g class="pr-drop" style="--j:4"><rect x="218" y="298" width="44" height="30" rx="3" fill="#f5f2ed" stroke="#beb5af" transform="rotate(-3 240 313)"/></g>
+                <!-- sample books and a roll of fabric on the floor -->
+                <g class="pr-drop" style="--j:5">
+                  <rect x="52" y="438" width="100" height="15" rx="2" fill="#404540"/>
+                  <rect x="60" y="424" width="88" height="14" rx="2" fill="#beb5af"/>
+                  <rect x="56" y="410" width="94" height="14" rx="2" fill="#a07f5a"/>
+                  <path d="M140 410v14M136 424v14M144 438v15" stroke="#f5f2ed" stroke-opacity=".55"/>
+                </g>
+                <g class="pr-drop" style="--j:6">
+                  <rect x="258" y="440" width="98" height="22" rx="11" fill="#beb5af"/>
+                  <path d="M270 440v22M282 440v22" stroke="#f5f2ed" stroke-opacity=".45"/>
+                  <ellipse cx="356" cy="451" rx="6" ry="11" fill="#e8e3dc" stroke="#404540"/>
+                </g>
+              </svg>
+            </div>
+          </figure>
+          <div class="step__meta"><em>02</em></div>
+          <h3>Concept</h3>
+          <p>Mood, layout and material direction take shape.</p>
+        </li>
+        <li class="step reveal" data-play style="--i:2">
+          <figure class="step__scene">
+            <div class="step__arch">
+              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                <use href="#pr-room"/>
+                <!-- the furniture, drawn in -->
+                <g fill="none" stroke="#404540" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path class="pr-draw" pathLength="1" d="M34 452a176 30 0 1 0 352 0a176 30 0 1 0-352 0"/>
+                  <path class="pr-draw" pathLength="1" d="M110 358v-34q0-22 22-22h156q22 0 22 22v34"/>
+                  <path class="pr-draw" pathLength="1" d="M108 326a20 20 0 0 1 20 20v30a20 20 0 0 1-20 20a20 20 0 0 1-20-20v-30a20 20 0 0 1 20-20z"/>
+                  <path class="pr-draw" pathLength="1" d="M312 326a20 20 0 0 1 20 20v30a20 20 0 0 1-20 20a20 20 0 0 1-20-20v-30a20 20 0 0 1 20-20z"/>
+                  <path class="pr-draw" pathLength="1" d="M130 348h160a14 14 0 0 1 14 14v12a14 14 0 0 1-14 14H130a14 14 0 0 1-14-14v-12a14 14 0 0 1 14-14z"/>
+                  <path class="pr-draw" pathLength="1" d="M48 392C48 262 62 152 122 142v9"/>
+                  <path class="pr-draw" pathLength="1" d="M99 173a23 23 0 0 1 46 0z"/>
+                  <path class="pr-draw" pathLength="1" d="M30 394a18 4 0 1 0 36 0a18 4 0 1 0-36 0"/>
+                  <path class="pr-draw" pathLength="1" d="M338 358a26 6 0 1 0 52 0a26 6 0 1 0-52 0M364 364v30M350 395h28"/>
+                </g>
+                <!-- dimensions -->
+                <g fill="none" stroke="#7a5c3c" stroke-width="1.1">
+                  <path class="pr-draw" pathLength="1" d="M88 292h244M88 286v12M332 286v12"/>
+                  <path class="pr-draw" pathLength="1" d="M140 134h140M140 128v12M280 128v12"/>
+                  <path class="pr-draw" pathLength="1" d="M378 60v336M372 60h12M372 396h12"/>
+                </g>
+                <g class="pr-label" fill="#7a5c3c" font-size="15" text-anchor="middle">
+                  <text x="210" y="284">2.40</text>
+                  <text x="210" y="125">1.40</text>
+                  <text x="368" y="228" transform="rotate(-90 368 228)">2.80</text>
+                </g>
+                <!-- set square on the floor -->
+                <path d="M296 490h80l-80-44z" fill="#f5f2ed" fill-opacity=".75" stroke="#404540" stroke-width="1.2"/>
+                <path d="M308 483h42l-42-23z" fill="none" stroke="#404540"/>
+              </svg>
+            </div>
+          </figure>
+          <div class="step__meta"><em>03</em></div>
+          <h3>Design</h3>
+          <p>Drawings, details and specifications, refined together.</p>
+        </li>
+        <li class="step reveal" data-play style="--i:3">
+          <figure class="step__scene">
+            <div class="step__arch">
+              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                <defs>
+                  <radialGradient id="prGlow" cx="0.5" cy="0.5" r="0.5">
+                    <stop offset="0" stop-color="#f5f2ed" stop-opacity="0.95" />
+                    <stop offset="1" stop-color="#f5f2ed" stop-opacity="0" />
+                  </radialGradient>
+                  <linearGradient id="prCone" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#f5f2ed" stop-opacity="0.85" />
+                    <stop offset="1" stop-color="#f5f2ed" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <use href="#pr-room"/>
+                <!-- art in the niche -->
+                <rect x="182" y="226" width="56" height="74" fill="#f5f2ed" stroke="#404540" stroke-width="1.2"/>
+                <path d="M195 290v-30a15 15 0 0 1 30 0v30z" fill="#a07f5a"/>
+                <circle cx="224" cy="242" r="6" fill="#beb5af"/>
+                <g class="pr-light"><ellipse cx="122" cy="252" rx="74" ry="96" fill="url(#prGlow)" /></g>
+                <!-- rug -->
+                <ellipse cx="210" cy="452" rx="176" ry="30" fill="#beb5af" fill-opacity="0.75" />
+                <ellipse cx="210" cy="452" rx="150" ry="22" fill="none" stroke="#f5f2ed" stroke-width="1.2" />
+                <!-- olive velvet sofa -->
+                <ellipse cx="210" cy="402" rx="128" ry="6" fill="#404540" fill-opacity="0.14" />
+                <path d="M110 358v-34q0-22 22-22h156q22 0 22 22v34z" fill="#404540" stroke="#2d312d" stroke-width="1.5" />
+                <rect x="88" y="326" width="40" height="70" rx="20" fill="#404540" stroke="#2d312d" stroke-width="1.5" />
+                <rect x="292" y="326" width="40" height="70" rx="20" fill="#404540" stroke="#2d312d" stroke-width="1.5" />
+                <rect x="116" y="348" width="188" height="40" rx="14" fill="#404540" stroke="#2d312d" stroke-width="1.5" />
+                <line x1="210" y1="352" x2="210" y2="384" stroke="#2d312d" stroke-opacity="0.6" />
+                <rect x="104" y="396" width="6" height="8" rx="1" fill="#2d312d" />
+                <rect x="310" y="396" width="6" height="8" rx="1" fill="#2d312d" />
+                <rect x="130" y="313" width="46" height="40" rx="13" fill="#beb5af" transform="rotate(-6 153 333)" />
+                <rect x="244" y="315" width="44" height="38" rx="13" fill="#a07f5a" stroke="#2d312d" stroke-width="1.2" transform="rotate(5 266 334)" />
+                <!-- side table with a vase of branches -->
+                <ellipse cx="364" cy="358" rx="26" ry="6" fill="#404540" />
+                <rect x="361" y="358" width="6" height="36" fill="#404540" />
+                <ellipse cx="364" cy="395" rx="14" ry="3.5" fill="#404540" />
+                <path d="M356 356q-3-22 5-28v-12h6v12q8 6 5 28z" fill="#beb5af" stroke="#404540" stroke-width="1.2" />
+                <g fill="none" stroke="#404540" stroke-width="1.2" stroke-linecap="round">
+                  <path d="M364 316q-6-28-20-50" />
+                  <path d="M364 316q4-32 20-56" />
+                  <path d="M364 316q-1-24-3-46" />
+                </g>
+                <g fill="#404540">
+                  <ellipse cx="352" cy="282" rx="5.5" ry="2.2" transform="rotate(-55 352 282)" />
+                  <ellipse cx="346" cy="270" rx="5" ry="2" transform="rotate(-35 346 270)" />
+                  <ellipse cx="371" cy="282" rx="5.5" ry="2.2" transform="rotate(60 371 282)" />
+                  <ellipse cx="379" cy="266" rx="5" ry="2" transform="rotate(40 379 266)" />
+                  <ellipse cx="362" cy="290" rx="5" ry="2" transform="rotate(-80 362 290)" />
+                  <ellipse cx="361" cy="275" rx="4.5" ry="1.9" transform="rotate(80 361 275)" />
+                </g>
+                <!-- the lamp switches on -->
+                <g class="pr-light">
+                  <path d="M101 174h43l96 170H32z" fill="url(#prCone)" />
+                  <ellipse cx="122" cy="175" rx="19" ry="4.5" fill="#f5f2ed" />
+                </g>
+                <rect class="pr-dim" width="400" height="500" fill="#262a25" opacity="0" />
+                <ellipse cx="48" cy="394" rx="18" ry="4" fill="#404540" />
+                <path d="M48 392C48 262 62 152 122 142" fill="none" stroke="#404540" stroke-width="3" stroke-linecap="round" />
+                <line x1="122" y1="142" x2="122" y2="151" stroke="#404540" stroke-width="1.5" />
+                <path d="M99 173a23 23 0 0 1 46 0z" fill="#a07f5a" stroke="#404540" stroke-width="1.5" />
+              </svg>
+            </div>
+          </figure>
+          <div class="step__meta"><em>04</em></div>
+          <h3>Realise</h3>
+          <p>We oversee the build and style every final detail.</p>
+        </li>
+      </ol>
     </section>
 
     <!-- CONTACT -->
@@ -333,7 +605,7 @@
     </div>
   </div>
 
-  <script src="config.js?v=19"></script>
-  <script src="script.js?v=19"></script>
+  <script src="config.js?v=20"></script>
+  <script src="script.js?v=20"></script>
 </body>
 </html>

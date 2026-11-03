@@ -357,4 +357,19 @@
     { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
   );
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  // ── Services and Process drawings play as they appear (CSS); hovering or tapping one plays it again.
+  //    Finished animations restart together, keeping their order but without the stagger between cards. ──
+  document.querySelectorAll("[data-play]").forEach((el) =>
+    el.addEventListener("pointerenter", () => {
+      if (!el.getAnimations || !el.classList.contains("is-visible")) return;
+      const done = el.getAnimations({ subtree: true }).filter((a) => a.playState === "finished" && a.effect);
+      if (!done.length) return;
+      const start = Math.min(...done.map((a) => a.effect.getTiming().delay || 0));
+      done.forEach((a) => {
+        a.currentTime = start;
+        a.play();
+      });
+    })
+  );
 })();
