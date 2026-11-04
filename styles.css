@@ -415,7 +415,7 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
 }
 /* bronze line from each step to the next */
 .step__meta::after { content: ""; position: absolute; top: 50%; left: 44px; right: calc(-1 * var(--gap)); height: 1px; background: var(--bronze); transform-origin: left; }
-.step:last-child .step__meta::after { right: 0; } /* the last step's line runs on to the end of its column */
+.step:last-child .step__meta::after { right: 0; } /* the last step's line runs on to the end of its picture */
 .step h3 { font-size: 1.45rem; margin-bottom: 0.5rem; }
 .step p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
 
@@ -544,7 +544,7 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
   .lightbox__media img, .lightbox__media video { max-height: 58vh; }
   .journal__grid { grid-template-columns: repeat(2, 1fr); }
   .services__list, .process__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .step:nth-child(2n) .step__meta::after { display: none; }
+  .step:nth-child(2n) .step__meta::after { right: 0; } /* two steps to a row: 02 and 04 run on to the end of their picture */
 }
 @media (max-width: 900px) {
   .hero__inner { grid-template-columns: 1fr; }
