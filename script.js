@@ -35,13 +35,13 @@
     if (photos.length < 2) return "";
     return clips ? `${photos.length - clips} photos + ${clips} videos` : `${photos.length} ${unit}`;
   };
-  const renderCards = (el, items, sizes, unit) => {
+  const renderCards = (el, items, sizes, unit, cols) => {
     if (!el || !items) return;
     el.innerHTML = items
       .map((p, i) => {
         const count = countOf(p, unit);
         return `
-      <article class="project reveal" tabindex="0" data-index="${i}">
+      <article class="project reveal" tabindex="0" data-index="${i}" style="--d:${i % cols}">
         <div class="project__media">${coverOf(p, sizes)}${count ? `<span class="project__count">${count}</span>` : ""}</div>
         <div class="project__info">
           <span>${esc(meta(p))}</span>
@@ -115,8 +115,8 @@
     lbMedia.innerHTML = ""; // stops a playing video
     if (lastFocus) lastFocus.focus();
   };
-  renderCards(document.getElementById("projectsGrid"), S.projects, "(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) 31vw, 405px", "photos");
-  renderCards(document.getElementById("journalGrid"), S.journal, "(max-width: 980px) calc(50vw - 30px), (max-width: 1280px) 23vw, 300px", "slides");
+  renderCards(document.getElementById("projectsGrid"), S.projects, "(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) 31vw, 405px", "photos", 3);
+  renderCards(document.getElementById("journalGrid"), S.journal, "(max-width: 980px) calc(50vw - 30px), (max-width: 1280px) 23vw, 300px", "slides", 4);
   lbMedia.addEventListener("click", (e) => {
     const btn = e.target.closest(".lightbox__nav");
     if (btn) showPhoto(photoIndex + +btn.dataset.step);
@@ -342,6 +342,170 @@
         e.preventDefault();
         toggleLamp();
       }
+    });
+  }
+
+
+  // ── Playful touches (motion only; the content stays the same) ──
+  const mouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const moving = !calm.matches;
+
+  // Studio: a pen stroke under "effortless", drawn when the heading appears (CSS)
+  const effortless = document.querySelector(".studio__text h2 em");
+  if (effortless)
+    effortless.insertAdjacentHTML("beforeend", '<svg class="scribble" viewBox="0 0 288 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 13C60 5 140 3 200 8S270 16 284 9"/></svg>');
+
+  // The quote arrives one word at a time (screen readers get the sentence whole)
+  const quote = document.querySelector(".band__quote");
+  if (quote) {
+    const text = quote.textContent.trim();
+    quote.innerHTML =
+      `<span class="sr-only">${esc(text)}</span><span aria-hidden="true">` +
+      text.split(/\s+/).map((w, i) => `<span class="w" style="--w:${i}">${esc(w)}</span>`).join(" ") +
+      "</span>";
+    quote.classList.add("is-split");
+  }
+
+  // Reading progress along the top, and the studio photos floating at different speeds as the page scrolls
+  const progress = document.createElement("div");
+  progress.className = "progress";
+  progress.setAttribute("aria-hidden", "true");
+  document.body.appendChild(progress);
+  const studioBox = document.querySelector(".studio__images");
+  const floaters = moving ? [[".studio__img--a", -12], [".studio__img--b", 30]].map(([sel, amp]) => [document.querySelector(sel), amp]).filter(([el]) => el) : [];
+  let fxQueued = false;
+  const scrollFx = () => {
+    fxQueued = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0})`;
+    if (studioBox && floaters.length) {
+      const r = studioBox.getBoundingClientRect();
+      if (r.bottom > -200 && r.top < innerHeight + 200) {
+        const t = Math.max(-1, Math.min(1, (r.top + r.height / 2 - innerHeight / 2) / innerHeight));
+        floaters.forEach(([el, amp]) => (el.style.translate = `0 ${(t * amp).toFixed(1)}px`));
+      }
+    }
+  };
+  const queueFx = () => {
+    if (!fxQueued) {
+      fxQueued = true;
+      requestAnimationFrame(scrollFx);
+    }
+  };
+  window.addEventListener("scroll", queueFx, { passive: true });
+  window.addEventListener("resize", queueFx);
+  scrollFx();
+
+  if (mouse && moving) {
+    // Project and journal cards: hovering flips through the card's photos, with a little progress bar
+    const flipThrough = (grid, items) => {
+      if (!grid || !items) return;
+      grid.querySelectorAll(".project").forEach((card) => {
+        const item = items[+card.dataset.index];
+        const photos = photosOf(item);
+        if (item.compare || photos.length < 2) return;
+        const media = card.querySelector(".project__media");
+        let layers = null, bars = null, timer = null, shown = 0, top = 0;
+        const build = () => {
+          layers = [0, 1].map(() => {
+            const img = document.createElement("img");
+            img.className = "project__peek";
+            img.alt = "";
+            media.insertBefore(img, media.querySelector(".project__count"));
+            return img;
+          });
+          bars = document.createElement("div");
+          bars.className = "project__bars";
+          bars.innerHTML = photos.map(() => "<i></i>").join("");
+          media.appendChild(bars);
+        };
+        const show = (i) => {
+          shown = i;
+          [...bars.children].forEach((b, k) => (b.className = k < i ? "is-done" : ""));
+          const now = bars.children[i];
+          void now.offsetWidth; // restart this bar's fill
+          now.className = "is-now";
+          if (i === 0) return layers.forEach((l) => l.classList.remove("is-on"));
+          const src = photos[i].src;
+          const pre = new Image();
+          pre.onload = () => {
+            if (shown !== i || !card.classList.contains("is-peeking")) return;
+            const next = layers[1 - top];
+            next.src = src;
+            media.insertBefore(next, media.querySelector(".project__count")); // on top of the other layer
+            requestAnimationFrame(() => next.classList.add("is-on"));
+            const prev = layers[top];
+            setTimeout(() => shown === i && prev.classList.remove("is-on"), 700);
+            top = 1 - top;
+          };
+          pre.src = src;
+        };
+        card.addEventListener("pointerenter", (e) => {
+          if (e.pointerType !== "mouse") return;
+          if (!layers) build();
+          card.classList.add("is-peeking");
+          show(0);
+          clearInterval(timer);
+          timer = setInterval(() => show((shown + 1) % photos.length), 1600);
+        });
+        card.addEventListener("pointerleave", () => {
+          clearInterval(timer);
+          card.classList.remove("is-peeking");
+          shown = 0;
+          if (layers) layers.forEach((l) => l.classList.remove("is-on"));
+        });
+      });
+    };
+    flipThrough(document.getElementById("projectsGrid"), S.projects);
+    flipThrough(document.getElementById("journalGrid"), S.journal);
+
+    // Reels: drag the row sideways (a drag never opens a reel)
+    let drag = null;
+    let dragged = false;
+    track.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      drag = { x: e.clientX, left: track.scrollLeft };
+      dragged = false;
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (!dragged && Math.abs(dx) > 6) {
+        dragged = true;
+        track.classList.add("is-dragging");
+      }
+      if (dragged) track.scrollLeft = drag.left - dx;
+    });
+    window.addEventListener("pointerup", () => {
+      if (!drag) return;
+      drag = null;
+      track.classList.remove("is-dragging"); // the row settles on the nearest reel
+      if (dragged) setTimeout(() => (dragged = false), 0); // after the click that ends the drag
+    });
+    track.addEventListener("click", (e) => {
+      if (!dragged) return;
+      e.preventDefault();
+      e.stopPropagation();
+      dragged = false;
+    }, true);
+    track.addEventListener("dragstart", (e) => e.preventDefault());
+
+    // Contact: a soft light follows the cursor across the olive panel
+    const contact = document.querySelector(".contact");
+    if (contact)
+      contact.addEventListener("pointermove", (e) => {
+        const r = contact.getBoundingClientRect();
+        contact.style.setProperty("--gx", `${Math.round(e.clientX - r.left)}px`);
+        contact.style.setProperty("--gy", `${Math.round(e.clientY - r.top)}px`);
+      });
+
+    // Buttons lean gently towards the cursor
+    document.querySelectorAll(".btn--dark, .btn--light, .nav__cta").forEach((btn) => {
+      btn.addEventListener("pointermove", (e) => {
+        const r = btn.getBoundingClientRect();
+        btn.style.translate = `${((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1)}px ${((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1)}px`;
+      });
+      btn.addEventListener("pointerleave", () => (btn.style.translate = ""));
     });
   }
 
