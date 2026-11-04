@@ -231,14 +231,14 @@
 
   // ── Contact form: sends the message straight to Elina's inbox through Web3Forms (web3forms.com),
   //    a free form-to-email service, using the Access Key in config.js (formKey).
-  //    Without a key, or if sending fails, the visitor's email app opens with the message ready instead. ──
+  //    The visitor stays on the page; if sending fails, they're asked to try again. ──
   const form = document.getElementById("contactForm");
   const note = document.getElementById("formNote");
   const sendBtn = form.querySelector('button[type="submit"]');
-  const openEmailApp = (name, email, message) => {
-    const subject = "Website enquiry" + (name ? " from " + name : "");
-    const body = `${message}\n\n— ${name || "(no name)"}\n${email}`;
-    window.location.href = `mailto:${S.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const showFailure = (reason) => {
+    note.innerHTML =
+      "Sorry, your message couldn’t be sent just now" + (reason ? ` (${esc(String(reason).slice(0, 80))})` : "") +
+      `. Please try again in a moment, or email <a href="mailto:${esc(S.email)}">${esc(S.email)}</a>.`;
   };
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -257,13 +257,11 @@
       return;
     }
     if (d.get("_honey")) return; // the hidden spam trap was filled in: a bot
-    if (!S.formKey) {
-      note.textContent = "Your email app will open with your message ready. Just press send.";
-      openEmailApp(name, email, message);
-      return;
-    }
+    if (!S.formKey) return showFailure();
     sendBtn.disabled = true;
     note.textContent = "Sending…";
+    const abort = window.AbortController ? new AbortController() : null;
+    const timer = abort && setTimeout(() => abort.abort(), 20000);
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -277,15 +275,16 @@
           email,
           message,
         }),
+        signal: abort ? abort.signal : undefined,
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || String(data.success) !== "true") throw new Error(data.message || "HTTP " + res.status);
+      if (!res.ok || String(data.success) !== "true") throw new Error(data.message || "error " + res.status);
       form.reset();
       note.textContent = "Thank you! Your message has been sent. We’ll be in touch soon.";
     } catch (err) {
-      note.textContent = "Your email app will open with your message ready. Just press send.";
-      openEmailApp(name, email, message);
+      showFailure(err && err.name !== "AbortError" && err.name !== "TypeError" ? err.message : "");
     } finally {
+      clearTimeout(timer);
       sendBtn.disabled = false;
     }
   });

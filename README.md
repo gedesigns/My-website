@@ -26,9 +26,8 @@ After changing `config.js`, `styles.css` or `script.js`, raise the `?v=` number 
 Messages are emailed through Web3Forms (web3forms.com), a free form-to-email service (250 messages a month).
 To set it up: on web3forms.com enter the address that should receive the messages and press
 **Create Access Key**; Web3Forms emails the key to that address. Put the key in `config.js` as `formKey`
-(it is meant to be public). Messages then arrive from Web3Forms with the visitor's address as reply-to.
-While `formKey` is empty, or if Web3Forms can't be reached, the visitor's email app opens with the message
-ready to send instead.
+(it is meant to be public). Messages then arrive from Web3Forms with the visitor's address as reply-to. Visitors stay on the page:
+if a message can't be sent, they're asked to try again (Elina's address is shown as well).
 
 ## Brand assets
 - `assets/brand/` – the original logo files plus `logo-mark.svg`, a vector trace of the mark
