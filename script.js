@@ -268,8 +268,9 @@
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: S.formKey,
-          subject: `New enquiry from ${name || email} · gracefuleradesigns.com`,
-          from_name: "gracefuleradesigns.com",
+          subject: `New website enquiry from ${name || email}`,
+          // a plain sender name: a web address here, on a message sent by Web3Forms, looks like spoofing to spam filters
+          from_name: "Website contact form",
           replyto: email,
           name,
           email,
