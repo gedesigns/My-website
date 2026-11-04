@@ -18,7 +18,7 @@ window.SITE = {
   // Messages from the website's form are emailed to the address above through Web3Forms (web3forms.com).
   // formKey is the Access Key Web3Forms emails to that address (it's safe to publish).
   // While it's empty, the form opens the visitor's email app with their message ready to send.
-  formKey: "",
+  formKey: "ff1fea85-393b-4bf7-ab19-c6bcc539c18c",
 
   // ── Projects ──
   // image:   the photo on the project card (put photos in assets/img/projects/)
