@@ -415,7 +415,7 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
 }
 /* bronze line from each step to the next */
 .step__meta::after { content: ""; position: absolute; top: 50%; left: 44px; right: calc(-1 * var(--gap)); height: 1px; background: var(--bronze); transform-origin: left; }
-.step:last-child .step__meta::after { display: none; }
+.step:last-child .step__meta::after { right: 0; } /* the last step's line runs on to the end of its column */
 .step h3 { font-size: 1.45rem; margin-bottom: 0.5rem; }
 .step p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
 
