@@ -248,12 +248,17 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
 .project__media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--radius); background: var(--stone); }
 .project__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
 .project:hover .project__media img { transform: scale(1.05); }
+/* "open" hint on hover: a drawn arrow (the ↗ character turns into a blue emoji on iPhones) */
 .project__media::after {
-  content: "↗"; position: absolute; top: 1rem; right: 1rem; width: 46px; height: 46px; border-radius: 50%;
-  display: grid; place-items: center; background: var(--ivory); color: var(--ink); font-size: 1.1rem;
+  content: ""; position: absolute; top: 1rem; right: 1rem; width: 46px; height: 46px; border-radius: 50%;
+  background: var(--ivory) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10' fill='none' stroke='%23262a25' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
   opacity: 0; transform: scale(0.8); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
 }
 .project:hover .project__media::after, .project:focus-visible .project__media::after { opacity: 1; transform: none; }
+/* computers with a mouse only: on phones and tablets a tapped card would keep showing it */
+@media (hover: none), (pointer: coarse), (max-width: 760px) {
+  .project__media::after { display: none; }
+}
 .project__info { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; padding-top: 1.1rem; }
 .project__info span { font-size: 0.75rem; font-weight: 500; color: var(--bronze-ink); border: 1px solid var(--taupe); border-radius: 999px; padding: 0.2rem 0.8rem; }
 .project__info span:empty { display: none; }
@@ -511,7 +516,10 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
 .lightbox__info h3 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin-bottom: 1.1rem; }
 .lightbox__desc { color: var(--ink-soft); }
 .lightbox__link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--bronze-ink); border-bottom: 1px solid currentColor; }
-.lightbox__link::after { content: "↗"; }
+.lightbox__link::after {
+  content: ""; width: 0.72em; height: 0.72em; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 .lightbox__link:hover { color: var(--ink); }
 .lightbox__link[hidden] { display: none; }
 .lightbox__close { position: absolute; top: 1rem; right: 1.4rem; background: none; border: 0; color: var(--ivory); font-size: 2.6rem; font-weight: 200; cursor: pointer; line-height: 1; }
@@ -568,7 +576,6 @@ body.menu-open main, body.menu-open footer { visibility: hidden; }
   .journal__grid .project__info h3 { font-size: 1.05rem; }
   .journal__grid .project__info span { font-size: 0.68rem; padding: 0.15rem 0.6rem; }
   .journal__grid .project__count { left: 0.6rem; top: 0.6rem; }
-  .journal__grid .project__media::after { display: none; }
   .stats { grid-template-columns: 1fr; }
   .services__list { grid-template-columns: 1fr; gap: 0.9rem; }
   .chip { flex-direction: row; }
